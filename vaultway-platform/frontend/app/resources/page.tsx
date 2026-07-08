@@ -1,36 +1,63 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const TESTIMONIALS = [
   {
-    quote: 'We moved every client contract off email the week we signed up. The audit log alone justified the switch — for the first time, I can prove who saw what.',
-    av: 'PN',
+    text: 'We moved every client contract off email the week we signed up. The audit log alone justified the switch — for the first time, I can prove who saw what.',
     name: 'Priya Nair',
     role: 'Operations Lead · Meridian Legal',
-    grad: 'linear-gradient(135deg,#a9d6ff,#6db4f5)',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Priya%20Nair',
   },
   {
-    quote: 'Setup took ten minutes. Our security review took longer to schedule than it took to pass. Zero-knowledge encryption was the box our CISO never expected to tick.',
-    av: 'DR',
+    text: 'Setup took ten minutes. Our security review took longer to schedule than it took to pass. Zero-knowledge encryption was the box our CISO never expected to tick.',
     name: 'Daniel Reyes',
     role: 'CTO · Northwind Labs',
-    grad: 'linear-gradient(135deg,#8ee9c2,#5fd6a4)',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Daniel%20Reyes',
   },
   {
-    quote: 'I send unreleased designs to clients every day. With Vaultway I can set a link to expire after one view — no lawyer, no NDA dance, no anxiety.',
-    av: 'AK',
+    text: 'I send unreleased designs to clients every day. With Vaultway I can set a link to expire after one view — no lawyer, no NDA dance, no anxiety.',
     name: 'Aisha Khan',
     role: 'Founder · Studio Verre',
-    grad: 'linear-gradient(135deg,#e7c26a,#d9a94a)',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Aisha%20Khan',
   },
   {
-    quote: 'In healthcare, a leaked file is a lawsuit. Vaultway gives us encryption we can actually explain to auditors, and links our patients can open without an account.',
-    av: 'SM',
+    text: 'In healthcare, a leaked file is a lawsuit. Vaultway gives us encryption we can actually explain to auditors, and links our patients can open without an account.',
     name: 'Dr. Sofia Marx',
     role: 'IT Director · Halcyon Health',
-    grad: 'linear-gradient(135deg,#a9d6ff,#6db4f5)',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Sofia%20Marx',
+  },
+  {
+    text: 'Our financial audits used to be a nightmare of tracking spreadsheets. Now we just point auditors to the Vaultway immutable logs. Clean, painless, and secure.',
+    name: 'Marcus Vance',
+    role: 'Partner · Kestrel Finance',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Marcus%20Vance',
+  },
+  {
+    text: 'Vaultway solved our agency onboarding flow. We share brand guidelines and raw assets securely, while tracking downloads. The zero-trust guarantee is real.',
+    name: 'Elena Rostova',
+    role: 'Creative Director · Aperture Studio',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Elena%20Rostova',
+  },
+  {
+    text: 'When we are doing high-profile acquisitions, email is a vector we avoid. Vaultway is the only platform that ensures our deal rooms are mathematically secure.',
+    name: 'James Cardon',
+    role: 'Venture Capitalist · Apex Equity',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=James%20Cardon',
+  },
+  {
+    text: 'No accounts, no plugins, no headaches. Clients download encrypted documents directly in their browser. It is the gold standard for secure customer operations.',
+    name: 'Siddharth Mehta',
+    role: 'Customer Success · Veloce Scale',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Siddharth%20Mehta',
+  },
+  {
+    text: 'We handle secure code distributions. With Vaultway, we know that if the servers are ever compromised, the binaries remain cryptographically locked.',
+    name: 'Takahiro Sato',
+    role: 'Lead DevSecOps · NeoTokyo Tech',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=Takahiro%20Sato',
   },
 ];
 
@@ -61,126 +88,89 @@ const FAQS = [
   },
 ];
 
+const TestimonialsColumn = (props: {
+  className?: string;
+  testimonials: typeof TESTIMONIALS;
+  duration?: number;
+}) => {
+  return (
+    <div className={props.className}>
+      <motion.div
+        animate={{
+          translateY: '-50%',
+        }}
+        transition={{
+          duration: props.duration || 10,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatType: 'loop',
+        }}
+        className="flex flex-col gap-6 pb-6 bg-transparent"
+      >
+        {[
+          ...new Array(2).fill(0).map((_, index) => (
+            <React.Fragment key={index}>
+              {props.testimonials.map(({ text, image, name, role }, i) => (
+                <div
+                  className="p-10 rounded-3xl border border-[#1b3050]/50 bg-[#0d1728]/80 backdrop-blur-md shadow-lg shadow-blue-500/5 max-w-xs w-full"
+                  key={i}
+                >
+                  <div className="text-[15px] text-slate-300 leading-relaxed">{text}</div>
+                  <div className="flex items-center gap-3 mt-6">
+                    <img
+                      width={40}
+                      height={40}
+                      src={image}
+                      alt={name}
+                      className="h-10 w-10 rounded-full object-cover border border-slate-700/50"
+                    />
+                    <div className="flex flex-col">
+                      <div className="font-semibold text-slate-200 tracking-tight leading-5">{name}</div>
+                      <div className="text-xs leading-5 opacity-60 tracking-tight text-slate-400">{role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </React.Fragment>
+          )),
+        ]}
+      </motion.div>
+    </div>
+  );
+};
+
 export default function ResourcesPage() {
   useScrollReveal();
-
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
-  const testimonialAutoplayRef = useRef<NodeJS.Timeout | null>(null);
-
-  const stopAutoplay = useCallback(() => {
-    if (testimonialAutoplayRef.current) {
-      clearInterval(testimonialAutoplayRef.current);
-      testimonialAutoplayRef.current = null;
-    }
-  }, []);
-
-  const startAutoplay = useCallback(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    stopAutoplay();
-    testimonialAutoplayRef.current = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % 4);
-    }, 6000);
-  }, [stopAutoplay]);
-
-  useEffect(() => {
-    startAutoplay();
-    return () => stopAutoplay();
-  }, [startAutoplay, stopAutoplay]);
+  const firstColumn = TESTIMONIALS.slice(0, 3);
+  const secondColumn = TESTIMONIALS.slice(3, 6);
+  const thirdColumn = TESTIMONIALS.slice(6, 9);
 
   return (
     <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center' }}>
       {/* Testimonials */}
-      <section className="section" style={{ background: 'linear-gradient(180deg,var(--abyss),var(--void))' }}>
+      <section className="section" style={{ background: 'linear-gradient(180deg,var(--abyss),var(--void))', overflow: 'hidden' }}>
         <div className="wrap">
           <div className="center" data-reveal>
             <span className="eyebrow">Testimonials</span>
             <h2 className="h-sec">The people who trust us most have the most to lose</h2>
           </div>
+
           <div
-            className="t-wrap"
-            id="tWrap"
+            className="flex justify-center gap-6 mt-12 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] max-h-[640px] overflow-hidden"
             data-reveal
             data-d="1"
-            onMouseEnter={stopAutoplay}
-            onMouseLeave={startAutoplay}
           >
-            <div className="t-viewport">
-              <div
-                className="t-track"
-                id="tTrack"
-                style={{
-                  transform: `translateX(-${activeTestimonial * 100}%)`,
-                  transition: 'transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1)',
-                }}
-              >
-                {TESTIMONIALS.map((testimonial, idx) => (
-                  <div key={idx} className="t-slide">
-                    <p className="t-quote">{testimonial.quote}</p>
-                    <div className="t-person">
-                      <span className="t-av" style={{ background: testimonial.grad }}>
-                        {testimonial.av}
-                      </span>
-                      <div>
-                        <div className="t-name">{testimonial.name}</div>
-                        <div className="t-role">{testimonial.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="t-nav">
-              <button
-                className="t-btn"
-                id="tPrev"
-                aria-label="Previous testimonial"
-                onClick={() => {
-                  setActiveTestimonial((prev) => (prev - 1 + 4) % 4);
-                  startAutoplay();
-                }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="19" y1="12" x2="5" y2="12" />
-                  <polyline points="12 19 5 12 12 5" />
-                </svg>
-              </button>
-              <div className="t-dots" id="tDots">
-                {TESTIMONIALS.map((_, idx) => (
-                  <button
-                    key={idx}
-                    className={`t-dot ${activeTestimonial === idx ? 'active' : ''}`}
-                    aria-label={`Go to testimonial ${idx + 1}`}
-                    onClick={() => {
-                      setActiveTestimonial(idx);
-                      startAutoplay();
-                    }}
-                  ></button>
-                ))}
-              </div>
-              <button
-                className="t-btn"
-                id="tNext"
-                aria-label="Next testimonial"
-                onClick={() => {
-                  setActiveTestimonial((prev) => (prev + 1) % 4);
-                  startAutoplay();
-                }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
+            <TestimonialsColumn testimonials={firstColumn} duration={25} />
+            <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
+            <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={30} />
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="faq" id="faq">
+      <section className="faq" id="faq" style={{ paddingBottom: '80px' }}>
         <div className="center" data-reveal>
           <span className="eyebrow">Common questions</span>
           <h2 className="h-sec">Everything you need to know about Vaultway</h2>
