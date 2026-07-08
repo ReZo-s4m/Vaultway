@@ -1,0 +1,293 @@
+// Vaultway database schema
+// Provider: Supabase PostgreSQL  |  ORM: Prisma
+// Regenerate the client after changes:  npm run db:generate
+// Create/apply a migration:             npm run db:migrate
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum PermissionLevel {
+  VIEW
+  DOWNLOAD
+  EDIT
+  OWNER
+}
+
+enum ShareType {
+  EMAIL
+  USERNAME
+  PUBLIC_LINK
+}
+
+enum ActivityAction {
+  REGISTER
+  LOGIN
+  LOGOUT
+  UPLOAD
+  DOWNLOAD
+  DELETE
+  RESTORE
+  RENAME
+  MOVE
+  COPY
+  SHARE
+  PERMISSION_CHANGED
+  FOLDER_CREATED
+  FOLDER_DELETED
+}
+
+enum NotificationType {
+  FILE_UPLOADED
+  FILE_SHARED
+  PERMISSION_UPDATED
+  DOWNLOAD_COMPLETED
+  STORAGE_ALMOST_FULL
+}
+
+// ---------------------------------------------------------------------------
+// Core models
+// ---------------------------------------------------------------------------
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique // "ADMIN" | "USER"
+  description String?
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("roles")
+}
+
+model User {
+  id                String   @id @default(uuid())
+  email             String   @unique
+  username          String   @unique
+  passwordHash      String
+  name              String?
+  avatarUrl         String?
+  isActive          Boolean  @default(true)
+  storageUsedBytes  BigInt   @default(0)
+  storageQuotaBytes BigInt   @default(5368709120) // 5 GB
+
+  roleId String
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  files               File[]
+  folders             Folder[]
+  refreshTokens       RefreshToken[]
+  activityLogs        ActivityLog[]
+  notifications       Notification[]
+  sharesCreated       SharedFile[]      @relation("SharesCreatedBy")
+  permissionsReceived Permission[]      @relation("PermissionUser")
+  permissionsGranted  Permission[]      @relation("PermissionGrantedBy")
+  storageStatistic    StorageStatistic?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roleId])
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  tokenHash String    @unique // SHA-256 of the issued refresh token
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model Folder {
+  id        String    @id @default(uuid())
+  name      String
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  parentId String?
+  parent   Folder?  @relation("FolderChildren", fields: [parentId], references: [id], onDelete: Cascade)
+  children Folder[] @relation("FolderChildren")
+
+  files File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ownerId])
+  @@index([parentId])
+  @@map("folders")
+}
+
+model File {
+  id           String @id @default(uuid())
+  name         String
+  originalName String
+  mimeType     String
+  sizeBytes    BigInt
+
+  // Supabase Storage location (stores the ENCRYPTED object)
+  storageBucket String @default("vault-files")
+  storagePath   String @unique
+  checksum      String?
+
+  // AES-256-GCM metadata (the key itself is held server-side, never in the DB)
+  encryptionIv      String
+  encryptionAuthTag String
+  encryptionAlgo    String @default("aes-256-gcm")
+
+  isFavorite    Boolean   @default(false)
+  isDeleted     Boolean   @default(false)
+  deletedAt     DateTime?
+  downloadCount Int       @default(0)
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  folderId String?
+  folder   Folder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+
+  shares       SharedFile[]
+  permissions  Permission[]
+  activityLogs ActivityLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ownerId])
+  @@index([folderId])
+  @@index([isDeleted])
+  @@map("files")
+}
+
+model SharedFile {
+  id        String    @id @default(uuid())
+  shareType ShareType
+
+  // Public-link sharing
+  linkToken    String?         @unique
+  passwordHash String? // optional password-protected link
+  permission   PermissionLevel @default(VIEW)
+  allowDownload Boolean        @default(true)
+
+  // Email / username sharing targets (nullable)
+  sharedWithEmail  String?
+  sharedWithUserId String?
+
+  expiresAt DateTime?
+  maxViews  Int?
+  viewCount Int       @default(0)
+  isRevoked Boolean   @default(false)
+
+  fileId String
+  file   File   @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  createdById String
+  createdBy   User   @relation("SharesCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fileId])
+  @@index([createdById])
+  @@index([linkToken])
+  @@map("shared_files")
+}
+
+model Permission {
+  id    String          @id @default(uuid())
+  level PermissionLevel @default(VIEW)
+
+  fileId String
+  file   File   @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation("PermissionUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  grantedById String
+  grantedBy   User   @relation("PermissionGrantedBy", fields: [grantedById], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([fileId, userId])
+  @@index([userId])
+  @@map("permissions")
+}
+
+model ActivityLog {
+  id        String         @id @default(uuid())
+  action    ActivityAction
+  metadata  Json?
+  ipAddress String?
+  device    String?
+  browser   String?
+  userAgent String?
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  fileId String?
+  file   File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("activity_logs")
+}
+
+model Notification {
+  id       String           @id @default(uuid())
+  type     NotificationType
+  title    String
+  message  String
+  isRead   Boolean          @default(false)
+  metadata Json?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([isRead])
+  @@map("notifications")
+}
+
+model StorageStatistic {
+  id               String   @id @default(uuid())
+  totalFiles       Int      @default(0)
+  totalFolders     Int      @default(0)
+  usedBytes        BigInt   @default(0)
+  quotaBytes       BigInt   @default(5368709120)
+  lastCalculatedAt DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("storage_statistics")
+}

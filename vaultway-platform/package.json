@@ -1,0 +1,32 @@
+{
+  "name": "vaultway-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloud-Based Secure File Sharing Platform — full-stack monorepo (Next.js + Express + Prisma + Supabase).",
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev --workspace backend",
+    "dev:web": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "start:api": "npm run start --workspace backend",
+    "start:web": "npm run start --workspace frontend",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:generate": "npm run db:generate --workspace backend",
+    "db:migrate": "npm run db:migrate --workspace backend",
+    "db:seed": "npm run db:seed --workspace backend",
+    "db:studio": "npm run db:studio --workspace backend",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "prettier": "^3.3.3"
+  }
+}

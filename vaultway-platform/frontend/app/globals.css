@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* shadcn/ui design tokens. Dark is the default theme (see <html className="dark">). */
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 210 92% 60%;
+    --primary-foreground: 214 100% 8%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 205 90% 92%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 210 92% 60%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 215 45% 6%;
+    --foreground: 213 40% 96%;
+    --card: 216 40% 9%;
+    --card-foreground: 213 40% 96%;
+    --popover: 216 40% 9%;
+    --popover-foreground: 213 40% 96%;
+    --primary: 210 92% 66%;
+    --primary-foreground: 214 100% 8%;
+    --secondary: 216 34% 15%;
+    --secondary-foreground: 213 40% 96%;
+    --muted: 216 34% 15%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 216 34% 18%;
+    --accent-foreground: 213 40% 96%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 213 40% 96%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 210 92% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
