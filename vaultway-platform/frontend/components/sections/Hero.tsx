@@ -16,6 +16,7 @@ export default function Hero() {
   useEffect(() => {
     let loadedCount = 0;
     const images: HTMLImageElement[] = [];
+    imagesRef.current = images; // Populate ref immediately to prevent race conditions on cached loads
 
     const handleLoad = () => {
       loadedCount++;
@@ -26,13 +27,11 @@ export default function Hero() {
 
     for (let i = 0; i <= FRAME_COUNT; i++) {
       const img = new Image();
+      images.push(img); // Push immediately so index is defined
       img.onload = handleLoad;
       img.onerror = handleLoad; // Increment count even on error to prevent locking
       img.src = `/hero-frames/${i.toString().padStart(2, '0')}.png`;
-      images.push(img);
     }
-
-    imagesRef.current = images;
   }, []);
 
   // Draw a specific frame to the canvas (cover-fit)
