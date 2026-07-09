@@ -186,13 +186,13 @@ export default function ResourcesPage() {
                 <span>{faq.q}</span>
                 <span className="fq-ic"></span>
               </button>
-              <div
-                className="faq-a"
-                style={{
+              <div 
+                className="faq-a" 
+                style={{ 
                   maxHeight: openFaqIndex === idx ? '500px' : '0px',
                   opacity: openFaqIndex === idx ? 1 : 0,
                   overflow: 'hidden',
-                  transition: 'all 0.35s ease',
+                  transition: 'max-height 0.35s ease, opacity 0.3s ease'
                 }}
               >
                 <p>{faq.a}</p>
