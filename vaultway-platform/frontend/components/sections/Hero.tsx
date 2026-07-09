@@ -46,7 +46,7 @@ export default function Hero() {
     const vRatio = canvas.height / img.height;
     const ratio = Math.max(hRatio, vRatio);
     const cx = (canvas.width - img.width * ratio) / 2;
-    const cy = (canvas.height - img.height * ratio) / 2;
+    const cy = canvas.height - img.height * ratio; // Align to bottom to keep safe box visible
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
