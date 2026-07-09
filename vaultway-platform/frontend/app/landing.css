@@ -50,15 +50,17 @@ button{font-family:inherit;cursor:pointer}
 .nav-cta .login:hover{color:var(--ink)}
 .nav-toggle{display:none;background:none;border:1px solid var(--line-2);border-radius:10px;padding:9px;color:var(--ink)}
 .nav-toggle svg{width:20px;height:20px;display:block}
+
 /* ====== Scroll-Driven Canvas Hero ====== */
 .vw-hero {
   position: relative;
-  height: 200vh;
+  height: 250vh; /* Smooth, extended scroll timeline */
   max-width: 100%;
   padding: 0;
   display: flex;
   flex-flow: column nowrap;
   background: var(--void);
+  color: var(--ink);
 }
 .vw-hero-media {
   position: sticky;
@@ -67,6 +69,7 @@ button{font-family:inherit;cursor:pointer}
   width: 100%;
   overflow: hidden;
   z-index: 0;
+  background: var(--void);
 }
 .vw-hero-media canvas {
   position: absolute;
@@ -90,15 +93,17 @@ button{font-family:inherit;cursor:pointer}
   z-index: 2;
   pointer-events: none;
   transition: opacity 0.05s linear, filter 0.05s linear;
+  color: var(--ink);
 }
 .vw-hero-text > * {
   pointer-events: auto;
 }
 .vw-hero-text h1 {
   font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-  font-weight: 700;
+  font-weight: 800;
   max-width: 18ch;
   margin: 0 auto 20px;
+  color: var(--ink);
 }
 .vw-hero-text h1 .grad {
   background: linear-gradient(120deg, var(--halo), var(--glow-hi) 55%, var(--glow));
@@ -111,7 +116,7 @@ button{font-family:inherit;cursor:pointer}
   font-size: clamp(1.02rem, 1.6vw, 1.2rem);
   max-width: 54ch;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .vw-hero-buttons {
   display: flex;
@@ -142,7 +147,7 @@ button{font-family:inherit;cursor:pointer}
 }
 @media (max-width: 768px) {
   .vw-hero {
-    height: 150vh;
+    height: 180vh;
   }
   .vw-hero-text h1 {
     font-size: clamp(1.8rem, 7vw, 2.8rem);
