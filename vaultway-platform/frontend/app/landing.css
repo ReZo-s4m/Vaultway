@@ -768,3 +768,217 @@ button{font-family:inherit;cursor:pointer}
   line-height: 1.65;
   margin-bottom: 36px;
 }
+
+/* ======= NEW Vaultway Section Styles (MEGA-inspired, real assets) ======= */
+
+/* Product Cards Section */
+.vw-cards-section {
+  padding: 100px 0 80px;
+}
+.vw-cards-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.vw-cards-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.vw-cards-header h2 {
+  font-size: clamp(1.7rem, 3.8vw, 2.8rem);
+  max-width: 24ch;
+  margin: 0 auto 24px;
+}
+.vw-cards-header p {
+  color: var(--ink-dim);
+  font-size: 1.06rem;
+  line-height: 1.65;
+  max-width: 68ch;
+  margin: 0 auto;
+}
+.vw-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.vw-card {
+  flex: 1 1 calc((100% - 48px) / 3);
+  min-width: 260px;
+  background: rgba(13, 23, 40, 0.45);
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.vw-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--glow);
+  box-shadow: 0 20px 40px -15px rgba(109, 180, 245, 0.18);
+}
+.vw-card-icon {
+  margin-bottom: 20px;
+}
+.vw-card-icon img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+.vw-card h5 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.vw-card p {
+  color: var(--ink-dim);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+.vw-card-link {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--glow-hi);
+  transition: color 0.2s;
+}
+.vw-card-link:hover {
+  color: var(--glow);
+}
+@media (max-width: 768px) {
+  .vw-card {
+    flex-basis: 100%;
+  }
+}
+
+/* Security Slice Section */
+.vw-slice {
+  padding: 100px 0;
+}
+.vw-slice-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.vw-slice-text h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.vw-slice-text p {
+  color: var(--ink-dim);
+  font-size: 1.04rem;
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.vw-slice-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--glow-hi);
+  margin-top: 12px;
+  transition: color 0.2s, gap 0.2s;
+}
+.vw-slice-link:hover {
+  color: var(--glow);
+  gap: 12px;
+}
+.vw-slice-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vw-slice-media video {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  border-radius: 16px;
+}
+@media (max-width: 768px) {
+  .vw-slice-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Alternating Features Section */
+.vw-alternating {
+  padding: 80px 0 100px;
+}
+.vw-alternating-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.vw-alternating-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+.vw-alternating-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+}
+.vw-alternating-list {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+.vw-alt-block {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+.vw-alt-block.reversed {
+  grid-template-columns: 0.9fr 1.1fr;
+  direction: rtl;
+}
+.vw-alt-block.reversed > * {
+  direction: ltr;
+}
+.vw-alt-text h3 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.vw-alt-text p {
+  color: var(--ink-dim);
+  font-size: 1.04rem;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.vw-alt-media {
+  background: rgba(13, 23, 40, 0.3);
+  border: 1px solid var(--line-2);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vw-alt-media video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+@media (max-width: 768px) {
+  .vw-alt-block,
+  .vw-alt-block.reversed {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    direction: ltr;
+  }
+}
+
