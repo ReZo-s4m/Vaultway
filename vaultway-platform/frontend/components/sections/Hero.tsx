@@ -17,15 +17,18 @@ export default function Hero() {
     let loadedCount = 0;
     const images: HTMLImageElement[] = [];
 
+    const handleLoad = () => {
+      loadedCount++;
+      if (loadedCount === FRAME_COUNT + 1) {
+        setImagesLoaded(true);
+      }
+    };
+
     for (let i = 0; i <= FRAME_COUNT; i++) {
       const img = new Image();
+      img.onload = handleLoad;
+      img.onerror = handleLoad; // Increment count even on error to prevent locking
       img.src = `/hero-frames/${i.toString().padStart(2, '0')}.png`;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === FRAME_COUNT + 1) {
-          setImagesLoaded(true);
-        }
-      };
       images.push(img);
     }
 
@@ -56,21 +59,28 @@ export default function Hero() {
   useEffect(() => {
     if (!imagesLoaded) return;
 
-    // Draw first frame immediately
-    drawFrame(0);
+    const parent = canvasRef.current?.parentElement;
+    if (!parent) return;
 
-    const handleScroll = () => {
+    const getFrameIndex = () => {
       const section = sectionRef.current;
-      const textPane = textRef.current;
-      if (!section) return;
-
+      if (!section) return 0;
       const totalHeight = section.scrollHeight;
       const visibleHeight = window.innerHeight;
       const pixelsPerFrame = (totalHeight - visibleHeight) / (FRAME_COUNT + 1);
       const frameIndex = Math.floor(window.scrollY / pixelsPerFrame);
-      const clampedIndex = Math.min(Math.max(frameIndex, 0), FRAME_COUNT);
+      return Math.min(Math.max(frameIndex, 0), FRAME_COUNT);
+    };
 
-      drawFrame(clampedIndex);
+    // Draw frame whenever container size changes (including first layout mount)
+    const resizeObserver = new ResizeObserver(() => {
+      drawFrame(getFrameIndex());
+    });
+    resizeObserver.observe(parent);
+
+    const handleScroll = () => {
+      const textPane = textRef.current;
+      drawFrame(getFrameIndex());
 
       // Text fade/blur effect on scroll
       if (textPane) {
@@ -85,11 +95,10 @@ export default function Hero() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', () => drawFrame(0));
 
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', () => drawFrame(0));
     };
   }, [imagesLoaded, drawFrame]);
 
