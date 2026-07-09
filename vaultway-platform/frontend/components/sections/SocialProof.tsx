@@ -1,4 +1,4 @@
-import { Users, ShieldCheck, Globe, HelpCircle } from 'lucide-react';
+import { Users, Shield, Globe, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SocialProof() {
@@ -34,7 +34,7 @@ export default function SocialProof() {
 
             <div className="proof-stat">
               <div className="proof-stat-icon" style={{ backgroundColor: 'rgba(109, 180, 245, 0.1)', color: 'var(--glow)' }}>
-                <ShieldCheck />
+                <Shield />
               </div>
               <div className="proof-stat-info">
                 <h5>Files Protected</h5>

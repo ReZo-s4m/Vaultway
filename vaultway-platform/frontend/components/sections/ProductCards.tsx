@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Cloud, Lock, Shield, MessageSquare, History } from 'lucide-react';
+import { Cloud, Lock, Shield, MessageSquare, Activity } from 'lucide-react';
 
 const PRODUCTS = [
   {
@@ -31,7 +31,7 @@ const PRODUCTS = [
     linkText: 'Discover Rooms',
   },
   {
-    icon: History,
+    icon: Activity,
     title: 'Immutable Audit Logs',
     desc: 'Track workspace access and viewing trails with cryptographically signed, tamper-proof activity audit histories.',
     href: '/security',

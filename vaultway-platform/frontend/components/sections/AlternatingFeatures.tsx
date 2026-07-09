@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Upload, Trash2, Copy, Check, ShieldAlert, KeyRound, MonitorSmartphone, Share2 } from 'lucide-react';
+import { Upload, Trash2, Copy, Check, ShieldAlert, KeyRound, Monitor, Share2 } from 'lucide-react';
 
 interface UploadingFile {
   id: string;
@@ -310,7 +310,7 @@ export default function AlternatingFeatures() {
             
             <div className="slice-media" data-reveal data-d="1">
               <div style={{ position: 'relative', width: '280px', height: '240px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px' }}>
-                <MonitorSmartphone size={80} style={{ color: 'var(--glow-hi)', filter: 'drop-shadow(0 0 15px rgba(109, 180, 245, 0.35))' }} />
+                <Monitor size={80} style={{ color: 'var(--glow-hi)', filter: 'drop-shadow(0 0 15px rgba(109, 180, 245, 0.35))' }} />
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <span style={{ fontSize: '0.78rem', background: 'rgba(255,255,255,0.06)', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '12px' }}>macOS</span>
                   <span style={{ fontSize: '0.78rem', background: 'rgba(255,255,255,0.06)', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '12px' }}>Windows</span>
