@@ -50,33 +50,108 @@ button{font-family:inherit;cursor:pointer}
 .nav-cta .login:hover{color:var(--ink)}
 .nav-toggle{display:none;background:none;border:1px solid var(--line-2);border-radius:10px;padding:9px;color:var(--ink)}
 .nav-toggle svg{width:20px;height:20px;display:block}
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;isolation:isolate}
-.hero-media{position:absolute;inset:0;z-index:-2;background-image:var(--poster);background-size:cover;background-position:center;overflow:hidden}
-.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-scrim{position:absolute;inset:0;z-index:-1;pointer-events:none}
-.hero-scrim.top{background:linear-gradient(180deg,rgba(6,10,17,.9) 0%,rgba(6,10,17,.25) 22%,transparent 40%)}
-.hero-scrim.left{background:linear-gradient(90deg,var(--void) 0%,rgba(6,10,17,.82) 26%,rgba(6,10,17,.35) 50%,transparent 66%)}
-.hero-scrim.bottom{background:linear-gradient(0deg,var(--void) 3%,rgba(6,10,17,.55) 16%,transparent 40%)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;width:100%}
-.hero-copy{max-width:640px}
-.hero h1{font-size:clamp(2.5rem,6.2vw,4.5rem);font-weight:700}
-.hero h1 .grad{background:linear-gradient(120deg,var(--halo),var(--glow-hi) 55%,var(--glow));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{color:#c3d3ea;font-size:clamp(1.05rem,1.8vw,1.28rem);max-width:52ch;margin-top:24px;line-height:1.55}
-.hero-actions{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
-.hero-meta{display:flex;gap:22px;margin-top:32px;flex-wrap:wrap;color:var(--ink-dim);font-size:.86rem;font-family:var(--mono)}
-.hero-meta span{display:flex;align-items:center;gap:.5em}
-.hero-meta svg{width:15px;height:15px;color:var(--good)}
-.hero-float{position:relative;height:100%;min-height:320px}
-.chip{position:absolute;display:flex;align-items:center;gap:11px;padding:13px 17px;border-radius:14px;font-size:.9rem;font-weight:600;background:rgba(12,20,34,.6);border:1px solid var(--line-2);backdrop-filter:blur(14px);box-shadow:0 20px 50px -22px rgba(0,0,0,.8);animation:floaty 6s ease-in-out infinite}
-.chip .ci{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;background:rgba(109,180,245,.14);color:var(--glow-hi)}
-.chip .ci svg{width:18px;height:18px}
-.chip small{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin-bottom:1px}
-.chip.c1{top:2%;right:2%;animation-delay:0s}
-.chip.c2{top:30%;right:26%;animation-delay:-1.5s}
-.chip.c3{top:58%;right:6%;animation-delay:-3s}
-.chip.c4{top:82%;right:32%;animation-delay:-4.5s}
-.chip .ci.ok{background:rgba(95,214,164,.15);color:var(--good)}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* ====== Scroll-Driven Canvas Hero ====== */
+.vw-hero {
+  position: relative;
+  height: 200vh;
+  max-width: 100%;
+  padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--void);
+}
+.vw-hero-media {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+.vw-hero-media canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.vw-hero-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--pad);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.05s linear, filter 0.05s linear;
+}
+.vw-hero-text > * {
+  pointer-events: auto;
+}
+.vw-hero-text h1 {
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  max-width: 18ch;
+  margin: 0 auto 20px;
+}
+.vw-hero-text h1 .grad {
+  background: linear-gradient(120deg, var(--halo), var(--glow-hi) 55%, var(--glow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.vw-hero-sub {
+  color: var(--ink-dim);
+  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  max-width: 54ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.vw-hero-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.vw-hero-meta {
+  display: flex;
+  gap: 22px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: var(--ink-dim);
+  font-size: .86rem;
+  font-family: var(--mono);
+}
+.vw-hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+.vw-hero-meta svg {
+  width: 15px;
+  height: 15px;
+  color: var(--good);
+}
+@media (max-width: 768px) {
+  .vw-hero {
+    height: 150vh;
+  }
+  .vw-hero-text h1 {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+  .vw-hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--abyss),var(--void))}
 .trust .wrap{padding-top:56px;padding-bottom:56px}
 .trust-label{text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:34px}
