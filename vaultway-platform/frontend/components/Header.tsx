@@ -10,7 +10,10 @@ import {
   Send,
   Share2,
   X,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+
 
 const featureItems = [
   {
@@ -42,6 +45,8 @@ const featureItems = [
 export function Header() {
   const [featuresOpen, setFeaturesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#171b20]/95 text-white backdrop-blur-xl">
@@ -107,20 +112,42 @@ export function Header() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link
-            href="/sign-in"
-            className="rounded-lg border border-zinc-500 px-5 py-2.5 text-sm font-medium transition hover:border-white"
-          >
-            Log in
-          </Link>
+          {!isAuthenticated ? (
+            <>
+              <Link
+                href="/sign-in"
+                className="rounded-lg border border-zinc-500 px-5 py-2.5 text-sm font-medium transition hover:border-white"
+              >
+                Log in
+              </Link>
 
-          <Link
-            href="/sign-up"
-            className="rounded-lg bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-white"
-          >
-            Sign up
-          </Link>
+              <Link
+                href="/sign-up"
+                className="rounded-lg bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-white"
+              >
+                Sign up
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/dashboard"
+                className="rounded-lg bg-[#1f2937]/50 hover:bg-[#1f2937] border border-white/5 px-5 py-2.5 text-sm font-medium transition"
+              >
+                Dashboard
+              </Link>
+
+              <button
+                onClick={() => logout()}
+                className="rounded-lg border border-red-500/30 hover:border-red-500 text-red-400/90 hover:text-red-400 hover:bg-red-500/5 px-5 py-2.5 text-sm font-medium transition flex items-center gap-1.5"
+              >
+                <LogOut size={15} />
+                <span>Log out</span>
+              </button>
+            </>
+          )}
         </div>
+
 
         <button
           type="button"
@@ -220,8 +247,50 @@ export function Header() {
             <Link href="/resources" className="block rounded-lg px-3 py-3" onClick={() => setMobileOpen(false)}>
               Resources
             </Link>
+
+            <div className="pt-4 mt-2 border-t border-white/5 space-y-2">
+              {!isAuthenticated ? (
+                <>
+                  <Link
+                    href="/sign-in"
+                    className="block w-full text-center rounded-lg border border-zinc-500 py-2.5 text-sm font-medium"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    className="block w-full text-center rounded-lg bg-zinc-100 py-2.5 text-sm font-semibold text-zinc-950"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Sign up
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="block w-full text-center rounded-lg bg-[#1f2937]/50 border border-white/5 py-2.5 text-sm font-medium"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMobileOpen(false);
+                    }}
+                    className="w-full text-center rounded-lg border border-red-500/30 text-red-400 py-2.5 text-sm font-medium flex items-center justify-center gap-1.5"
+                  >
+                    <LogOut size={15} />
+                    <span>Log out</span>
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
+
       )}
     </header>
   );
