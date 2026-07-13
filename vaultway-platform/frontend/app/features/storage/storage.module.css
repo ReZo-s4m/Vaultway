@@ -1,0 +1,951 @@
+.page {
+  --page: #171b20;
+  --page-deep: #14181d;
+  --surface: #1d2228;
+  --surface-2: #222830;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --text: #f6f7f9;
+  --muted: #a3aab4;
+  --muted-2: #737b87;
+  --blue: #2f6df6;
+  --blue-bright: #6491ff;
+  --blue-soft: rgba(47, 109, 246, 0.14);
+
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--page);
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.page a {
+  color: inherit;
+}
+
+.shell,
+.heroInner,
+.ctaSection {
+  width: min(1240px, calc(100% - 56px));
+  margin: 0 auto;
+}
+
+.hero {
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 78% 35%, rgba(47, 109, 246, 0.14), transparent 28rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 38%),
+    var(--page);
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: clamp(3.5rem, 7vw, 7rem);
+  min-height: 730px;
+  padding: 96px 0 104px;
+}
+
+.heroCopy {
+  max-width: 560px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--blue-bright);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.heroCopy h1,
+.featureCopy h2,
+.sectionHeading h2,
+.centerHeading h2,
+.showcaseHeading h2,
+.ctaContent h2 {
+  margin: 0;
+  font-weight: 640;
+  letter-spacing: -0.047em;
+}
+
+.heroCopy h1 {
+  margin-top: 20px;
+  font-size: clamp(3.2rem, 5.5vw, 5.35rem);
+  line-height: 1.015;
+}
+
+.heroText {
+  max-width: 540px;
+  margin: 27px 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.heroActions,
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.primaryButton,
+.darkOutlineButton {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 23px;
+  border-radius: 11px;
+  font-weight: 720;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.primaryButton {
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 16px 36px rgba(47, 109, 246, 0.21);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  background: #447bf7;
+  box-shadow: 0 20px 44px rgba(47, 109, 246, 0.3);
+}
+
+.textButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  color: #eef2ff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.textButton svg {
+  transition: transform 180ms ease;
+}
+
+.textButton:hover svg {
+  transform: translateX(4px);
+}
+
+.heroMedia {
+  min-width: 0;
+}
+
+.heroVideoFrame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: transparent;
+  filter: drop-shadow(0 35px 70px rgba(0, 0, 0, 0.38));
+}
+
+.heroVideo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.videoBrandCover {
+  position: absolute;
+  top: 6.25%;
+  left: 6.8%;
+  display: flex;
+  width: clamp(24px, 2.5vw, 34px);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 6px 16px rgba(47, 109, 246, 0.25);
+  font-size: clamp(0.68rem, 1vw, 0.9rem);
+  font-weight: 800;
+}
+
+.featuresSection .shell {
+  display: flex;
+  flex-direction: column;
+  gap: 142px;
+  padding: 138px 0;
+}
+
+.featureRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(4rem, 8vw, 8rem);
+}
+
+.featureRowReverse .featureCopy {
+  order: 2;
+}
+
+.featureRowReverse .featureMedia {
+  order: 1;
+}
+
+.featureCopy {
+  max-width: 555px;
+}
+
+.featureCopy h2,
+.sectionHeading h2,
+.centerHeading h2,
+.showcaseHeading h2 {
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1.075;
+}
+
+.featureCopy p {
+  margin: 24px 0 28px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.83;
+}
+
+.featureMedia {
+  position: relative;
+  min-height: 455px;
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(47, 109, 246, 0.1), transparent 34%),
+    linear-gradient(145deg, #222830, #1d2228);
+}
+
+.featureImage {
+  object-fit: contain;
+  padding: 22px;
+}
+
+.benefitsSection,
+.showcaseSection {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--page-deep);
+}
+
+.benefitsSection .shell,
+.plansSection .shell,
+.showcaseSection .shell,
+.faqSection .shell {
+  padding: 124px 0;
+}
+
+.benefitsLayout,
+.faqLayout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.76fr) minmax(0, 1.24fr);
+  gap: clamp(4rem, 9vw, 9rem);
+  align-items: start;
+}
+
+.sectionHeading {
+  position: sticky;
+  top: 110px;
+}
+
+.sectionHeading h2 {
+  margin-top: 17px;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.benefitCard {
+  min-height: 285px;
+  padding: 30px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.benefitIcon {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  color: var(--blue-bright);
+  background: var(--blue-soft);
+}
+
+.benefitCard h3 {
+  margin: 36px 0 0;
+  font-size: 1.16rem;
+}
+
+.benefitCard p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.plansSection {
+  background: var(--page);
+}
+
+.centerHeading {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.centerHeading h2 {
+  margin-top: 17px;
+}
+
+.centerHeading > p:last-child {
+  margin: 20px auto 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.planGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 58px;
+}
+
+.planCard {
+  position: relative;
+  display: flex;
+  min-height: 520px;
+  flex-direction: column;
+  padding: 29px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.planFeatured {
+  border-color: rgba(100, 145, 255, 0.35);
+  background:
+    linear-gradient(180deg, rgba(47, 109, 246, 0.085), transparent 40%),
+    var(--surface);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -13px;
+  right: 22px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.planName {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 720;
+}
+
+.planPrice {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.planPrice strong {
+  font-size: 2.7rem;
+  letter-spacing: -0.05em;
+}
+
+.planPrice span {
+  padding-bottom: 6px;
+  color: var(--muted-2);
+  font-size: 0.74rem;
+}
+
+.planLimits {
+  display: grid;
+  gap: 8px;
+  margin-top: 29px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: #d2d6dc;
+  font-size: 0.84rem;
+}
+
+.primaryPlanButton,
+.secondaryPlanButton {
+  display: inline-flex;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 23px;
+  border-radius: 10px;
+  font-weight: 720;
+  text-decoration: none;
+}
+
+.primaryPlanButton {
+  color: #fff;
+  background: var(--blue);
+}
+
+.secondaryPlanButton {
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.planFeatures {
+  display: grid;
+  gap: 13px;
+  margin-top: 28px;
+}
+
+.planFeatures div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #cdd2d9;
+  font-size: 0.82rem;
+}
+
+.planFeatures svg {
+  color: var(--blue-bright);
+}
+
+.pricingNote {
+  margin: 22px 0 0;
+  color: var(--muted-2);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.showcaseHeading {
+  max-width: 720px;
+}
+
+.showcaseHeading h2 {
+  margin-top: 17px;
+}
+
+.showcaseLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(4rem, 8vw, 8rem);
+  align-items: center;
+  margin-top: 58px;
+}
+
+.showcaseMedia {
+  position: relative;
+  min-height: 470px;
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(47, 109, 246, 0.11), transparent 34%),
+    var(--surface);
+}
+
+.showcaseImage {
+  object-fit: contain;
+  padding: 22px;
+  animation: mediaFade 240ms ease;
+}
+
+@keyframes mediaFade {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.showcaseList {
+  border-top: 1px solid var(--line);
+}
+
+.showcaseItem {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.showcaseItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 25px 0;
+  font-size: 1.02rem;
+  font-weight: 680;
+}
+
+.showcaseDescription {
+  display: block;
+  max-width: 700px;
+  padding: 0 42px 27px 0;
+  color: var(--muted);
+  line-height: 1.76;
+}
+
+.showcaseItemActive .showcaseItemHeader {
+  color: #fff;
+}
+
+.faqSection {
+  background: var(--page);
+}
+
+.faqList {
+  border-top: 1px solid var(--line);
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--line);
+}
+
+.faqItem summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 25px 0;
+  list-style: none;
+  cursor: pointer;
+  font-size: 1.02rem;
+  font-weight: 680;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqItem p {
+  max-width: 700px;
+  margin: -4px 0 0;
+  padding: 0 40px 27px 0;
+  color: var(--muted);
+  line-height: 1.76;
+}
+
+.plus {
+  color: var(--muted-2);
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.faqItem[open] .plus {
+  transform: rotate(45deg);
+}
+
+.ctaSection {
+  padding: 0 0 96px;
+}
+
+.ctaCard {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
+  overflow: hidden;
+  border-radius: 28px;
+  color: #171a1f;
+  background: #f1f2f4;
+}
+
+.ctaArt {
+  position: relative;
+  display: flex;
+  min-height: 350px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(47, 109, 246, 0.2), transparent 34%),
+    #e4e7ec;
+}
+
+.ctaCloud {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 112px;
+  height: 112px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 34px;
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 24px 50px rgba(47, 109, 246, 0.28);
+  font-size: 2.6rem;
+  font-weight: 850;
+}
+
+.ctaOrbOne,
+.ctaOrbTwo,
+.ctaOrbThree {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0.14;
+}
+
+.ctaOrbOne {
+  width: 270px;
+  height: 270px;
+}
+
+.ctaOrbTwo {
+  top: 65px;
+  right: 55px;
+  width: 58px;
+  height: 58px;
+}
+
+.ctaOrbThree {
+  bottom: 62px;
+  left: 54px;
+  width: 42px;
+  height: 42px;
+}
+
+.ctaContent {
+  padding: 56px;
+}
+
+.ctaContent h2 {
+  max-width: 680px;
+  font-size: clamp(2.45rem, 4.3vw, 4.2rem);
+  line-height: 1.06;
+}
+
+.ctaContent > p {
+  margin: 20px 0 0;
+  color: #555d68;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.darkOutlineButton {
+  border: 1px solid rgba(23, 26, 31, 0.24);
+  color: #171a1f;
+  background: transparent;
+}
+
+.darkOutlineButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(23, 26, 31, 0.4);
+  background: rgba(23, 26, 31, 0.045);
+}
+
+@media (max-width: 1050px) {
+  .heroInner,
+  .featureRow,
+  .showcaseLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .heroInner {
+    min-height: auto;
+    padding-top: 88px;
+  }
+
+  .heroCopy {
+    max-width: 760px;
+  }
+
+  .heroMedia {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .featureRowReverse .featureCopy,
+  .featureRowReverse .featureMedia {
+    order: initial;
+  }
+
+  .featureCopy {
+    max-width: 760px;
+  }
+
+  .featureMedia,
+  .showcaseMedia {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 860px) {
+  .benefitsLayout,
+  .faqLayout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .sectionHeading {
+    position: static;
+  }
+
+  .planGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .planCard {
+    min-height: auto;
+  }
+
+  .ctaCard {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaArt {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 680px) {
+  .shell,
+  .heroInner,
+  .ctaSection {
+    width: min(100% - 32px, 1240px);
+  }
+
+  .heroInner {
+    gap: 52px;
+    padding: 72px 0 82px;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+  .featuresSection .shell {
+    gap: 90px;
+    padding: 92px 0;
+  }
+
+  .featureCopy h2,
+  .sectionHeading h2,
+  .centerHeading h2,
+  .showcaseHeading h2 {
+    font-size: clamp(2.25rem, 10vw, 3.3rem);
+  }
+
+  .featureMedia,
+  .showcaseMedia {
+    min-height: 340px;
+  }
+
+  .featureImage,
+  .showcaseImage {
+    padding: 10px;
+  }
+
+  .benefitsSection .shell,
+  .plansSection .shell,
+  .showcaseSection .shell,
+  .faqSection .shell {
+    padding: 90px 0;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefitCard {
+    min-height: auto;
+  }
+
+  .ctaSection {
+    padding-bottom: 72px;
+  }
+
+  .ctaContent {
+    padding: 36px 24px;
+  }
+
+  .heroActions,
+  .ctaActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .darkOutlineButton {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SINGLE-COLOR PAGE OVERRIDES
+   Keeps every full-width section on the same metallic grey
+   and removes visible divider/grid lines.
+   ========================================================= */
+
+.page {
+  --page: #171b20;
+  --page-deep: #171b20;
+  --surface: #171b20;
+  --surface-2: #171b20;
+  --line: transparent;
+  --line-strong: transparent;
+
+  background: #171b20;
+}
+
+.hero,
+.featuresSection,
+.benefitsSection,
+.plansSection,
+.showcaseSection,
+.faqSection,
+.ctaSection {
+  border: 0;
+  background: #171b20;
+}
+
+/* Remove the hero/section divider visible across the page */
+.hero {
+  border-bottom: 0;
+}
+
+/* Let reference artwork blend into the page */
+.featureMedia,
+.showcaseMedia {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.featureImage,
+.showcaseImage {
+  padding: 0;
+}
+
+/* Remove the 2x2 grid lines from “What users will appreciate” */
+.benefitsGrid {
+  gap: 32px;
+  border: 0;
+  background: transparent;
+}
+
+.benefitCard {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Remove pricing card outlines while retaining spacing */
+.planGrid {
+  gap: 28px;
+}
+
+.planCard,
+.planFeatured {
+  border: 0;
+  background: #171b20;
+  box-shadow: none;
+}
+
+.planLimits,
+.secondaryPlanButton {
+  border: 0;
+}
+
+.secondaryPlanButton {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Remove accordion and FAQ divider lines */
+.showcaseList,
+.showcaseItem,
+.faqList,
+.faqItem {
+  border: 0;
+}
+
+.showcaseItem,
+.faqItem {
+  margin-bottom: 12px;
+}
+
+.showcaseItemHeader,
+.faqItem summary {
+  padding: 20px 0;
+}
+
+/* Keep the final CTA in the same page colour */
+.ctaCard,
+.ctaArt {
+  color: var(--text);
+  background: #171b20;
+}
+
+.ctaCard {
+  border-radius: 0;
+}
+
+.ctaContent > p {
+  color: var(--muted);
+}
+
+.darkOutlineButton {
+  border: 0;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.darkOutlineButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Remove any remaining decorative section borders */
+.benefitsSection,
+.showcaseSection {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+@media (max-width: 680px) {
+  .benefitsGrid {
+    gap: 52px;
+  }
+}
