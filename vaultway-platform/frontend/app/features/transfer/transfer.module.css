@@ -1,5 +1,5 @@
 .page {
-  --transfer-bg: #171b20;
+  --transfer-bg: #050507;
   --text: #f7f8fa;
   --muted: #a3aab4;
   --muted-2: #737b87;
@@ -589,12 +589,11 @@
 }
 
 .faqList {
-  border: 0;
+  border-top: 1px solid var(--line);
 }
 
 .faqItem {
-  margin: 0 0 12px;
-  border: 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .faqItem summary {
