@@ -468,8 +468,8 @@ export default function TransferPage() {
                 Send files for free
               </Link>
 
-              <Link href="/pricing" className={styles.secondaryButton}>
-                Compare plans
+              <Link href="/solutions" className={styles.secondaryButton}>
+                Explore solutions
               </Link>
             </div>
           </div>

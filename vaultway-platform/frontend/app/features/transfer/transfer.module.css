@@ -1,5 +1,5 @@
 .page {
-  --transfer-bg: #050507;
+  --transfer-bg: #171b20;
   --text: #f7f8fa;
   --muted: #a3aab4;
   --muted-2: #737b87;
@@ -234,7 +234,7 @@
   line-height: 1.075;
 }
 
-.sectionHeading > p:last-child {
+.sectionHeading>p:last-child {
   margin: 22px 0 0;
   color: var(--muted);
   line-height: 1.76;
@@ -299,8 +299,8 @@
   max-width: 590px;
 }
 
-.demoCopy > p,
-.performanceCopy > p {
+.demoCopy>p,
+.performanceCopy>p {
   margin: 24px 0 0;
   color: var(--muted);
   font-size: 1.04rem;
@@ -320,7 +320,7 @@
   gap: 17px;
 }
 
-.step > span {
+.step>span {
   display: inline-flex;
   width: 42px;
   height: 42px;
@@ -374,7 +374,7 @@
   font-weight: 720;
 }
 
-.panelTop > div > span {
+.panelTop>div>span {
   display: block;
   margin-top: 5px;
   color: var(--muted-2);
@@ -418,7 +418,7 @@
   font-size: 0.96rem;
 }
 
-.dropzone > span:not(.dropzoneIcon) {
+.dropzone>span:not(.dropzoneIcon) {
   margin-top: 7px;
   color: var(--muted);
   font-size: 0.76rem;
@@ -478,7 +478,7 @@
 }
 
 .fileRow div span,
-.fileRow > span:last-child {
+.fileRow>span:last-child {
   margin-top: 4px;
   color: var(--muted-2);
   font-size: 0.66rem;
@@ -589,11 +589,12 @@
 }
 
 .faqList {
-  border-top: 1px solid var(--line);
+  border: 0;
 }
 
 .faqItem {
-  border-bottom: 1px solid var(--line);
+  margin: 0 0 12px;
+  border: 0;
 }
 
 .faqItem summary {
@@ -673,6 +674,7 @@
 }
 
 @media (max-width: 1050px) {
+
   .heroGrid,
   .demoGrid,
   .performanceGrid {
@@ -710,6 +712,7 @@
 }
 
 @media (max-width: 820px) {
+
   .benefitsLayout,
   .controlsLayout,
   .faqLayout {

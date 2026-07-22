@@ -94,12 +94,7 @@ export function Header() {
               <ChevronDown size={17} />
             </Link>
 
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-zinc-200 transition hover:text-white"
-            >
-              Pricing
-            </Link>
+
 
             <Link
               href="/resources"
@@ -240,9 +235,7 @@ export function Header() {
               Solutions
             </Link>
 
-            <Link href="/pricing" className="block rounded-lg px-3 py-3" onClick={() => setMobileOpen(false)}>
-              Pricing
-            </Link>
+
 
             <Link href="/resources" className="block rounded-lg px-3 py-3" onClick={() => setMobileOpen(false)}>
               Resources

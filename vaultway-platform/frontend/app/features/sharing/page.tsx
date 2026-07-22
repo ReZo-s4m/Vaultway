@@ -116,7 +116,7 @@ const shareSections: ShareSection[] = [
       },
     ],
     action: "Explore sharing tools",
-    href: "/pricing",
+    href: "/solutions",
     image: "/share-assets/link-analytics-feature-1.png",
     alt: "Shared link analytics interface",
   },
@@ -407,8 +407,8 @@ export default function SharingPage() {
                 Create a free account
               </Link>
 
-              <Link href="/pricing" className={styles.secondaryButton}>
-                Compare plans
+              <Link href="/solutions" className={styles.secondaryButton}>
+                Explore solutions
               </Link>
             </div>
           </div>

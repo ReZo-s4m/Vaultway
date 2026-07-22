@@ -57,7 +57,7 @@ export default function HomePage() {
           <h2>Ready to protect your files?</h2>
           <p>Join half a million people who share without holding their breath. Your first 5 GB is free, forever.</p>
           <div className="cta-actions">
-            <Link href="/pricing" className="btn btn-primary">
+            <Link href="/sign-up" className="btn btn-primary">
               Start free
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />

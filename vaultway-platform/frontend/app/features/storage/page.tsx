@@ -278,8 +278,8 @@ export default function StoragePage() {
                 Create an account
               </Link>
 
-              <Link href="/pricing" className={styles.darkOutlineButton}>
-                Compare plans
+              <Link href="/solutions" className={styles.darkOutlineButton}>
+                Explore solutions
               </Link>
             </div>
           </div>

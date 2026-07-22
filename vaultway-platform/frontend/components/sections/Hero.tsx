@@ -25,63 +25,20 @@ export default function Hero() {
 
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef(0);
-  const animationFrameRef = useRef<number | null>(null);
+
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const animationFrameIdRef = useRef<number | null>(null);
+  const isComponentMountedRef = useRef(true);
+  const hasDrawnAnyFrameRef = useRef(false);
 
   const [loadedFrames, setLoadedFrames] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [firstFrameReady, setFirstFrameReady] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
   /*
-   * Preload all animation frames.
-   */
-  useEffect(() => {
-    let cancelled = false;
-    let completedFrames = 0;
-
-    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
-
-    const handleComplete = () => {
-      completedFrames += 1;
-
-      if (!cancelled) {
-        setLoadedFrames(completedFrames);
-
-        if (completedFrames === TOTAL_FRAMES) {
-          imagesRef.current = images;
-          setImagesLoaded(true);
-        }
-      }
-    };
-
-    for (let index = 0; index < TOTAL_FRAMES; index += 1) {
-      const image = new Image();
-
-      images[index] = image;
-
-      image.onload = handleComplete;
-      image.onerror = () => {
-        console.error(
-          `Failed to load hero frame: ${index
-            .toString()
-            .padStart(2, '0')}.png`,
-        );
-
-        handleComplete();
-      };
-
-      image.src = `/hero-frames/${index
-        .toString()
-        .padStart(2, '0')}.png`;
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  /*
-   * Resize the internal canvas resolution without resizing it
-   * every time a new frame is drawn.
+   * Resize internal canvas resolution matching viewport ratio.
    */
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -127,23 +84,13 @@ export default function Hero() {
     }
 
     const context = canvas.getContext('2d');
-
     if (!context) return;
 
     const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-
     const canvasWidth = container.clientWidth;
     const canvasHeight = container.clientHeight;
 
-    context.setTransform(
-      pixelRatio,
-      0,
-      0,
-      pixelRatio,
-      0,
-      0,
-    );
-
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     context.clearRect(0, 0, canvasWidth, canvasHeight);
 
     const imageRatio = image.naturalWidth / image.naturalHeight;
@@ -161,11 +108,6 @@ export default function Hero() {
     }
 
     const drawX = (canvasWidth - drawWidth) / 2;
-
-    /*
-     * Bottom-align the image so the lower part of the animation
-     * remains visible.
-     */
     const drawY = canvasHeight - drawHeight;
 
     context.imageSmoothingEnabled = true;
@@ -181,29 +123,80 @@ export default function Hero() {
   }, []);
 
   /*
-   * Get animation progress based only on the hero section.
+   * Preload frame 0 immediately for instant display, then preload 1..60.
+   */
+  useEffect(() => {
+    let cancelled = false;
+    let completedFrames = 0;
+    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
+
+    // 1. Load Frame 0 first so floating elements show immediately
+    const frame0 = new Image();
+    images[0] = frame0;
+
+    frame0.onload = () => {
+      completedFrames += 1;
+      if (!cancelled) {
+        imagesRef.current = images;
+        setLoadedFrames(1);
+        setFirstFrameReady(true);
+      }
+    };
+    frame0.onerror = () => {
+      completedFrames += 1;
+    };
+    frame0.src = '/hero-frames/00.png';
+
+    // 2. Preload remaining frames 1..60 in parallel
+    for (let index = 1; index < TOTAL_FRAMES; index += 1) {
+      const image = new Image();
+      images[index] = image;
+
+      image.onload = () => {
+        completedFrames += 1;
+        if (!cancelled) {
+          setLoadedFrames(completedFrames);
+          if (completedFrames === TOTAL_FRAMES) {
+            imagesRef.current = images;
+            setImagesLoaded(true);
+          }
+        }
+      };
+
+      image.onerror = () => {
+        completedFrames += 1;
+        if (!cancelled) {
+          setLoadedFrames(completedFrames);
+        }
+      };
+
+      image.src = `/hero-frames/${index
+        .toString()
+        .padStart(2, '0')}.png`;
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /*
+   * Calculate hero progress based on scroll position.
    */
   const getHeroProgress = useCallback(() => {
     const section = sectionRef.current;
-
     if (!section) return 0;
 
     const headerOffset = 72;
-
     const sectionTop =
       section.getBoundingClientRect().top + window.scrollY;
-
-    const visibleHeroHeight =
-      window.innerHeight - headerOffset;
-
+    const visibleHeroHeight = window.innerHeight - headerOffset;
     const scrollableDistance =
       section.offsetHeight - visibleHeroHeight;
 
     if (scrollableDistance <= 0) return 0;
 
-    const scrollInsideHero =
-      window.scrollY - sectionTop;
-
+    const scrollInsideHero = window.scrollY - sectionTop;
     return Math.min(
       Math.max(scrollInsideHero / scrollableDistance, 0),
       1,
@@ -211,227 +204,237 @@ export default function Hero() {
   }, []);
 
   /*
-   * Draw the correct frame and animate the text.
+   * Update target scroll progress ref.
    */
-  const updateHero = useCallback(() => {
-    animationFrameRef.current = null;
+  const updateTargetProgress = useCallback(() => {
+    targetProgressRef.current = getHeroProgress();
+  }, [getHeroProgress]);
 
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
+  /*
+   * Main continuous animation tick loop.
+   * Handles:
+   * - Ultra-smooth Lerp dampening for scroll frame scrubbing (removes lag/stutter)
+   * - Ambient floating physics (3D elements float & bob gently before loading & while idle)
+   * - Video crossfade & hero text scroll transitions
+   */
+  const tick = useCallback(
+    (timestamp: number) => {
+      if (!isComponentMountedRef.current) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
-
-    if (prefersReducedMotion) {
-      drawFrame(0);
-
-      if (canvas) {
-        canvas.style.opacity = '1';
-      }
-
-      if (video) {
-        video.pause();
-        video.style.opacity = '0';
-      }
-
+      const canvas = canvasRef.current;
+      const video = videoRef.current;
       const text = textRef.current;
 
-      if (text) {
-        text.style.opacity = '1';
-        text.style.transform = 'none';
-        text.style.filter = 'none';
-        text.style.pointerEvents = 'auto';
-      }
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
 
-      return;
-    }
-
-    const progress = getHeroProgress();
-
-    /*
-     * Phase 1: play image frames from 00.png to 60.png.
-     */
-    const imageProgress = Math.min(
-      Math.max(progress / IMAGE_END, 0),
-      1,
-    );
-
-    const nextFrame = Math.min(
-      LAST_FRAME_INDEX,
-      Math.round(imageProgress * LAST_FRAME_INDEX),
-    );
-
-    if (nextFrame !== currentFrameRef.current) {
-      currentFrameRef.current = nextFrame;
-      drawFrame(nextFrame);
-    }
-
-    /*
-     * Phase 2:
-     * Start the video immediately after frame 60 and crossfade
-     * from the canvas into the playing video.
-     */
-    const videoFadeProgress = Math.min(
-      Math.max(
-        (progress - IMAGE_END) /
-          (VIDEO_FADE_END - IMAGE_END),
-        0,
-      ),
-      1,
-    );
-
-    if (
-      progress >= VIDEO_START &&
-      video &&
-      videoReady
-    ) {
-      if (!videoStartedRef.current) {
-        videoStartedRef.current = true;
-        video.currentTime = 0;
-
-        void video.play().catch((error) => {
-          console.error(
-            'Unable to start hero sealing video:',
-            error,
-          );
-
-          videoStartedRef.current = false;
-        });
-      }
-
-      if (canvas) {
-        canvas.style.opacity = String(
-          1 - videoFadeProgress,
-        );
-      }
-
-      video.style.opacity = String(videoFadeProgress);
-    } else {
-      if (canvas) {
-        canvas.style.opacity = '1';
-      }
-
-      if (video) {
-        video.style.opacity = '0';
-        video.pause();
-
-        if (video.currentTime !== 0) {
-          video.currentTime = 0;
+      if (prefersReducedMotion) {
+        drawFrame(0);
+        if (canvas) canvas.style.opacity = '1';
+        if (video) {
+          video.pause();
+          video.style.opacity = '0';
         }
+        if (text) {
+          text.style.opacity = '1';
+          text.style.transform = 'none';
+          text.style.filter = 'none';
+          text.style.pointerEvents = 'auto';
+        }
+        return;
       }
 
-      videoStartedRef.current = false;
-    }
+      // 1. Smooth Lerp calculation: slide currentProgress towards targetProgress
+      const target = targetProgressRef.current;
+      const diff = target - currentProgressRef.current;
 
-    /*
-     * Existing hero text animation.
-     */
-    const text = textRef.current;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgressRef.current += diff * 0.12; // 0.12 ease factor for liquid-smooth motion
+      } else {
+        currentProgressRef.current = target;
+      }
 
-    if (text) {
-      const fadeStart = 0.08;
-      const fadeEnd = 0.34;
+      const progress = currentProgressRef.current;
 
-      const fadeProgress = Math.min(
+      // 2. Ambient Floating physics (makes elements float & bob gently before loading and while idle)
+      const floatIntensity = Math.max(0, 1 - progress * 2.5);
+      const floatY =
+        Math.sin(timestamp * 0.0016) * 10 * floatIntensity;
+      const floatX =
+        Math.cos(timestamp * 0.0012) * 5 * floatIntensity;
+      const floatRot =
+        Math.sin(timestamp * 0.001) * 0.7 * floatIntensity;
+      const floatScale =
+        1 + Math.sin(timestamp * 0.0014) * 0.005 * floatIntensity;
+
+      if (canvas) {
+        canvas.style.transform = `translate3d(${floatX}px, ${floatY}px, 0) rotate(${floatRot}deg) scale(${floatScale})`;
+      }
+
+      // 3. Draw correct frame based on smoothed progress
+      const imageProgress = Math.min(
+        Math.max(progress / IMAGE_END, 0),
+        1,
+      );
+
+      const nextFrame = Math.min(
+        LAST_FRAME_INDEX,
+        Math.round(imageProgress * LAST_FRAME_INDEX),
+      );
+
+      if (
+        nextFrame !== currentFrameRef.current ||
+        !hasDrawnAnyFrameRef.current
+      ) {
+        currentFrameRef.current = nextFrame;
+        drawFrame(nextFrame);
+        hasDrawnAnyFrameRef.current = true;
+      }
+
+      // 4. Video crossfade phase
+      const videoFadeProgress = Math.min(
         Math.max(
-          (progress - fadeStart) /
-            (fadeEnd - fadeStart),
+          (progress - IMAGE_END) /
+            (VIDEO_FADE_END - IMAGE_END),
           0,
         ),
         1,
       );
 
-      const opacity = 1 - fadeProgress;
-      const translateY = fadeProgress * -30;
-      const blur = fadeProgress * 6;
+      if (progress >= VIDEO_START && video && videoReady) {
+        if (!videoStartedRef.current) {
+          videoStartedRef.current = true;
+          video.currentTime = 0;
 
-      text.style.opacity = opacity.toString();
-      text.style.transform =
-        `translate3d(0, ${translateY}px, 0)`;
-      text.style.filter = `blur(${blur}px)`;
-      text.style.pointerEvents =
-        opacity < 0.15 ? 'none' : 'auto';
-    }
-  }, [drawFrame, getHeroProgress, videoReady]);
+          void video.play().catch((error) => {
+            console.error(
+              'Unable to start hero sealing video:',
+              error,
+            );
+            videoStartedRef.current = false;
+          });
+        }
+
+        if (canvas) {
+          canvas.style.opacity = String(1 - videoFadeProgress);
+        }
+
+        video.style.opacity = String(videoFadeProgress);
+      } else {
+        if (canvas) {
+          canvas.style.opacity = '1';
+        }
+
+        if (video) {
+          video.style.opacity = '0';
+          video.pause();
+
+          if (video.currentTime !== 0) {
+            video.currentTime = 0;
+          }
+        }
+
+        videoStartedRef.current = false;
+      }
+
+      // 5. Hero text animation
+      if (text) {
+        const fadeStart = 0.08;
+        const fadeEnd = 0.34;
+
+        const fadeProgress = Math.min(
+          Math.max(
+            (progress - fadeStart) / (fadeEnd - fadeStart),
+            0,
+          ),
+          1,
+        );
+
+        const opacity = 1 - fadeProgress;
+        const translateY = fadeProgress * -30;
+        const blur = fadeProgress * 6;
+
+        text.style.opacity = opacity.toString();
+        text.style.transform = `translate3d(0, ${translateY}px, 0)`;
+        text.style.filter = `blur(${blur}px)`;
+        text.style.pointerEvents =
+          opacity < 0.15 ? 'none' : 'auto';
+      }
+
+      // Request next RAF frame to maintain continuous smooth animation
+      animationFrameIdRef.current = requestAnimationFrame(tick);
+    },
+    [drawFrame, getHeroProgress, videoReady],
+  );
 
   /*
-   * Limit scroll updates to one per animation frame.
-   */
-  const requestHeroUpdate = useCallback(() => {
-    if (animationFrameRef.current !== null) return;
-
-    animationFrameRef.current =
-      window.requestAnimationFrame(updateHero);
-  }, [updateHero]);
-
-  /*
-   * Start the animation after every image has loaded.
+   * Initialize canvas sizing, initial render, and start RAF loop.
    */
   useEffect(() => {
-    if (!imagesLoaded) return;
+    isComponentMountedRef.current = true;
 
     const container = canvasContainerRef.current;
-
     if (!container) return;
 
-    const resizeObserver = new ResizeObserver(() => {
-      resizeCanvas();
-      drawFrame(currentFrameRef.current);
-    });
-
-    resizeObserver.observe(container);
-
     resizeCanvas();
-    drawFrame(0);
-    updateHero();
+    updateTargetProgress();
 
-    window.addEventListener('scroll', requestHeroUpdate, {
+    // If frame 0 is ready, render immediately
+    if (firstFrameReady) {
+      drawFrame(0);
+    }
+
+    // Start continuous RAF animation loop
+    animationFrameIdRef.current = requestAnimationFrame(tick);
+
+    // Passive scroll listener updates target scroll position
+    const handleScroll = () => {
+      updateTargetProgress();
+    };
+
+    window.addEventListener('scroll', handleScroll, {
       passive: true,
     });
 
     const handleResize = () => {
       resizeCanvas();
       drawFrame(currentFrameRef.current);
-      requestHeroUpdate();
+      updateTargetProgress();
     };
 
     window.addEventListener('resize', handleResize);
 
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+      drawFrame(currentFrameRef.current);
+    });
+    resizeObserver.observe(container);
+
     return () => {
+      isComponentMountedRef.current = false;
       resizeObserver.disconnect();
 
-      window.removeEventListener(
-        'scroll',
-        requestHeroUpdate,
-      );
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
 
-      window.removeEventListener(
-        'resize',
-        handleResize,
-      );
-
-      if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(
-          animationFrameRef.current,
-        );
+      if (animationFrameIdRef.current !== null) {
+        cancelAnimationFrame(animationFrameIdRef.current);
       }
 
       const video = videoRef.current;
-
       if (video) {
         video.pause();
         video.currentTime = 0;
       }
-
       videoStartedRef.current = false;
     };
   }, [
-    imagesLoaded,
+    firstFrameReady,
     drawFrame,
     resizeCanvas,
-    requestHeroUpdate,
-    updateHero,
+    updateTargetProgress,
+    tick,
   ]);
 
   return (
@@ -460,9 +463,6 @@ export default function Hero() {
             const video = event.currentTarget;
             video.pause();
 
-            /*
-             * Keep the final sealed frame visible.
-             */
             if (
               Number.isFinite(video.duration) &&
               video.duration > 0.05
@@ -473,12 +473,18 @@ export default function Hero() {
         />
 
         {!imagesLoaded && (
-          <div className="vw-hero-loader">
+          <div
+            className={`vw-hero-loader ${
+              firstFrameReady ? 'vw-hero-loader--minimal' : ''
+            }`}
+            aria-live="polite"
+          >
             <div className="vw-hero-loader-bar">
               <span
                 style={{
-                  width: `${(loadedFrames / TOTAL_FRAMES) * 100
-                    }%`,
+                  width: `${
+                    (loadedFrames / TOTAL_FRAMES) * 100
+                  }%`,
                 }}
               />
             </div>
@@ -581,3 +587,4 @@ function CheckIcon() {
     </svg>
   );
 }
+

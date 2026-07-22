@@ -360,6 +360,22 @@ body,
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.82rem;
   letter-spacing: 0.04em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vw-hero-loader.vw-hero-loader--minimal {
+  inset: auto 24px 24px auto;
+  flex-direction: row;
+  padding: 8px 16px;
+  background: rgba(13, 16, 24, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  gap: 10px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .vw-hero-loader-bar {
@@ -369,6 +385,12 @@ body,
 
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.1);
+  transition: width 0.3s ease;
+}
+
+.vw-hero-loader--minimal .vw-hero-loader-bar {
+  width: 70px;
+  height: 4px;
 }
 
 .vw-hero-loader-bar span {
@@ -376,8 +398,8 @@ body,
   height: 100%;
 
   border-radius: inherit;
-  background: rgba(255, 255, 255, 0.8);
-  transition: width 180ms ease;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transition: width 150ms ease;
 }
 
 @media (max-width: 900px) {

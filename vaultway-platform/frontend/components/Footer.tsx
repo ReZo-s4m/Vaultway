@@ -41,7 +41,6 @@ export function Footer() {
             <h5>Product</h5>
             <Link href="/features">Features</Link>
             <Link href="/security">Security</Link>
-            <Link href="/pricing">Pricing</Link>
             <Link href="/solutions">How it works</Link>
             <Link href="/">Dashboard</Link>
           </div>

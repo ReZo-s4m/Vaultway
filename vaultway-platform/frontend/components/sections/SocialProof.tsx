@@ -13,7 +13,7 @@ export default function SocialProof() {
               Vaultway is built for teams who cannot compromise on confidentiality. From medical charts to financial records, join thousands of professionals sharing and collaborating securely daily.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
-              <Link href="/pricing" className="btn btn-primary">
+              <Link href="/sign-up" className="btn btn-primary">
                 Sign up free
               </Link>
             </div>
