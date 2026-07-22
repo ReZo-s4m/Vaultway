@@ -71,28 +71,29 @@ model Role {
 }
 
 model User {
-  id                String   @id @default(uuid())
-  email             String   @unique
-  username          String   @unique
+  id                String  @id @default(uuid())
+  email             String  @unique
+  username          String  @unique
   passwordHash      String
   name              String?
   avatarUrl         String?
-  isActive          Boolean  @default(true)
-  storageUsedBytes  BigInt   @default(0)
-  storageQuotaBytes BigInt   @default(5368709120) // 5 GB
+  isActive          Boolean @default(true)
+  storageUsedBytes  BigInt  @default(0)
+  storageQuotaBytes BigInt  @default(5368709120) // 5 GB
 
   roleId String
   role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
 
-  files               File[]
-  folders             Folder[]
-  refreshTokens       RefreshToken[]
-  activityLogs        ActivityLog[]
-  notifications       Notification[]
-  sharesCreated       SharedFile[]      @relation("SharesCreatedBy")
-  permissionsReceived Permission[]      @relation("PermissionUser")
-  permissionsGranted  Permission[]      @relation("PermissionGrantedBy")
-  storageStatistic    StorageStatistic?
+  files                   File[]
+  folders                 Folder[]
+  refreshTokens           RefreshToken[]
+  passwordResetTokens     PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  activityLogs            ActivityLog[]
+  notifications           Notification[]
+  sharesCreated           SharedFile[]             @relation("SharesCreatedBy")
+  permissionsReceived     Permission[]             @relation("PermissionUser")
+  permissionsGranted      Permission[]             @relation("PermissionGrantedBy")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -145,17 +146,6 @@ model File {
   name         String
   originalName String
   mimeType     String
-  sizeBytes    BigInt
-
-  // Supabase Storage location (stores the ENCRYPTED object)
-  storageBucket String @default("vault-files")
-  storagePath   String @unique
-  checksum      String?
-
-  // AES-256-GCM metadata (the key itself is held server-side, never in the DB)
-  encryptionIv      String
-  encryptionAuthTag String
-  encryptionAlgo    String @default("aes-256-gcm")
 
   isFavorite    Boolean   @default(false)
   isDeleted     Boolean   @default(false)
@@ -168,6 +158,7 @@ model File {
   folderId String?
   folder   Folder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
 
+  versions     FileVersion[]
   shares       SharedFile[]
   permissions  Permission[]
   activityLogs ActivityLog[]
@@ -181,15 +172,40 @@ model File {
   @@map("files")
 }
 
+model FileVersion {
+  id        String @id @default(uuid())
+  version   Int    @default(1)
+  sizeBytes BigInt
+
+  // Supabase Storage location (stores the ENCRYPTED object for this specific version)
+  storageBucket String  @default("vault-files")
+  storagePath   String  @unique
+  checksum      String?
+
+  // AES-256-GCM metadata
+  encryptionIv      String
+  encryptionAuthTag String
+  encryptionAlgo    String @default("aes-256-gcm")
+
+  fileId String
+  file   File   @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fileId])
+  @@map("file_versions")
+}
+
 model SharedFile {
   id        String    @id @default(uuid())
   shareType ShareType
 
   // Public-link sharing
-  linkToken    String?         @unique
-  passwordHash String? // optional password-protected link
-  permission   PermissionLevel @default(VIEW)
-  allowDownload Boolean        @default(true)
+  linkToken     String?         @unique
+  passwordHash  String? // optional password-protected link
+  permission    PermissionLevel @default(VIEW)
+  allowDownload Boolean         @default(true)
 
   // Email / username sharing targets (nullable)
   sharedWithEmail  String?
@@ -199,6 +215,7 @@ model SharedFile {
   maxViews  Int?
   viewCount Int       @default(0)
   isRevoked Boolean   @default(false)
+  deletedAt DateTime?
 
   fileId String
   file   File   @relation(fields: [fileId], references: [id], onDelete: Cascade)
@@ -277,17 +294,28 @@ model Notification {
   @@map("notifications")
 }
 
-model StorageStatistic {
-  id               String   @id @default(uuid())
-  totalFiles       Int      @default(0)
-  totalFolders     Int      @default(0)
-  usedBytes        BigInt   @default(0)
-  quotaBytes       BigInt   @default(5368709120)
-  lastCalculatedAt DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique // SHA-256 hash of the reset token
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 
-  userId String @unique
+  userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("storage_statistics")
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique // SHA-256 hash of the verification token
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("email_verification_tokens")
 }

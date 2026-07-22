@@ -38,7 +38,6 @@ async function main() {
         passwordHash,
         name: 'Administrator',
         roleId: adminRole.id,
-        storageStatistic: { create: {} },
       },
     });
     console.log(`Seeded admin user: ${ADMIN_EMAIL}`);
