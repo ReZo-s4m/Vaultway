@@ -1,9 +1,21 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Files,
+  HardDrive,
+  Loader2,
+  LogOut,
+  RefreshCw,
+  Share2,
+  Shield,
+} from "lucide-react";
+
 import { useAuth } from "@/hooks/useAuth";
-import { Shield, HardDrive, Files, Share2, LogOut, Loader2, RefreshCw } from "lucide-react";
+
+const STORAGE_LIMIT = 5 * 1024 * 1024 * 1024; // 5 GB
+const STORAGE_USED = 240 * 1024 * 1024; // 240 MB mock value
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -11,150 +23,242 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.push("/sign-in");
+      router.replace("/sign-in");
     }
   }, [isLoading, isAuthenticated, router]);
 
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/");
+      router.replace("/");
       router.refresh();
-    } catch (e) {
-      console.error("Logout failed:", e);
+    } catch (error) {
+      console.error("Logout failed:", error);
     }
   };
 
-  if (isLoading || !user) {
+  /*
+   * Keep the loading screen visible while authentication is being checked
+   * or while the unauthenticated user is being redirected.
+   */
+  if (isLoading || !isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="animate-spin text-blue-500" size={32} />
-          <p className="text-zinc-500 text-sm font-light">Loading workspace...</p>
+          <Loader2
+            size={32}
+            className="animate-spin text-blue-500"
+          />
+
+          <p className="text-sm font-light text-zinc-500">
+            Loading workspace...
+          </p>
         </div>
       </div>
     );
   }
 
-  // Storage calculation helper
-  const storageLimit = 5 * 1024 * 1024 * 1024; // 5 GB
-  const storageUsed = 240 * 1024 * 1024; // 240 MB mock
-  const storagePercentage = (storageUsed / storageLimit) * 100;
+  const storagePercentage =
+    (STORAGE_USED / STORAGE_LIMIT) * 100;
+
+  const storageFree = STORAGE_LIMIT - STORAGE_USED;
+  const storageFreeInGb =
+    storageFree / (1024 * 1024 * 1024);
+
+  const displayName =
+    user.name || user.username || "Vaultway user";
 
   return (
-    <div className="min-h-screen bg-[#050507] text-white flex flex-col pt-[100px] pb-16 relative overflow-hidden">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[#050507] pb-16 pt-[100px] text-white">
       {/* Background decoration */}
-      <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-blue-900/10 blur-[120px] pointer-events-none select-none" />
-      <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-indigo-900/10 blur-[120px] pointer-events-none select-none" />
+      <div className="pointer-events-none absolute left-[-20%] top-[-20%] h-[60%] w-[60%] select-none rounded-full bg-blue-900/10 blur-[120px]" />
 
-      <div className="max-w-[1140px] w-full mx-auto px-6 z-10 flex-1 flex flex-col gap-8">
-        {/* Upper welcome bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/5">
+      <div className="pointer-events-none absolute bottom-[-20%] right-[-20%] h-[60%] w-[60%] select-none rounded-full bg-indigo-900/10 blur-[120px]" />
+
+      <div className="z-10 mx-auto flex w-full max-w-[1140px] flex-1 flex-col gap-8 px-6">
+        {/* Welcome section */}
+        <div className="flex flex-col justify-between gap-4 border-b border-white/5 pb-6 md:flex-row md:items-center">
           <div>
-            <span className="text-xs font-semibold text-blue-400 uppercase tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/10">
-              Workspace Active
+            <span className="rounded-full border border-blue-500/10 bg-blue-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-blue-400">
+              Workspace active
             </span>
-            <h1 className="text-3xl font-bold mt-3">Welcome, {user.name || user.username}</h1>
-            <p className="text-zinc-400 text-sm font-light mt-1">
-              Manage and share your encrypted files safely. ID: <code className="text-xs bg-white/5 px-1.5 py-0.5 rounded text-zinc-300 font-mono">{user.id}</code>
+
+            <h1 className="mt-3 text-3xl font-bold">
+              Welcome, {displayName}
+            </h1>
+
+            <p className="mt-1 text-sm font-light text-zinc-400">
+              Manage and share your encrypted files safely.
+              ID:{" "}
+              <code className="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-zinc-300">
+                {user.id}
+              </code>
             </p>
           </div>
 
           <button
+            type="button"
             onClick={handleLogout}
-            className="flex items-center justify-center gap-2 border border-white/10 hover:border-red-500/30 hover:text-red-400 bg-white/[0.02] hover:bg-red-500/5 px-4.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 self-start md:self-center"
+            className="flex items-center justify-center gap-2 self-start rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:border-red-500/30 hover:bg-red-500/5 hover:text-red-400 md:self-center"
           >
             <LogOut size={16} />
             <span>Sign out</span>
           </button>
         </div>
 
-        {/* Dashboard grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Storage overview */}
-          <div className="bg-[#0b0d12]/40 border border-white/5 p-6 rounded-2xl backdrop-blur-md flex flex-col justify-between min-h-[180px]">
+        {/* Dashboard statistics */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="flex min-h-[180px] flex-col justify-between rounded-2xl border border-white/5 bg-[#0b0d12]/40 p-6 backdrop-blur-md">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-400">Secure Storage</span>
-              <HardDrive className="text-blue-400" size={20} />
+              <span className="text-sm font-medium text-zinc-400">
+                Secure storage
+              </span>
+
+              <HardDrive
+                className="text-blue-400"
+                size={20}
+              />
             </div>
+
             <div className="mt-4">
-              <h2 className="text-2xl font-bold">240.0 MB / 5.0 GB</h2>
-              {/* Progress bar */}
-              <div className="w-full bg-white/10 h-2.5 rounded-full mt-3.5 overflow-hidden">
+              <h2 className="text-2xl font-bold">
+                240.0 MB / 5.0 GB
+              </h2>
+
+              <div className="mt-3.5 h-2.5 w-full overflow-hidden rounded-full bg-white/10">
                 <div
-                  className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full"
-                  style={{ width: `${storagePercentage}%` }}
+                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"
+                  style={{
+                    width: `${Math.min(
+                      storagePercentage,
+                      100,
+                    )}%`,
+                  }}
                 />
               </div>
-              <div className="flex justify-between items-center text-xs text-zinc-500 mt-2">
-                <span>{storagePercentage.toFixed(1)}% Used</span>
-                <span>4.76 GB Free</span>
+
+              <div className="mt-2 flex items-center justify-between text-xs text-zinc-500">
+                <span>
+                  {storagePercentage.toFixed(1)}% used
+                </span>
+
+                <span>
+                  {storageFreeInGb.toFixed(2)} GB free
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Quick stats 1 */}
-          <div className="bg-[#0b0d12]/40 border border-white/5 p-6 rounded-2xl backdrop-blur-md flex flex-col justify-between min-h-[180px]">
+          <div className="flex min-h-[180px] flex-col justify-between rounded-2xl border border-white/5 bg-[#0b0d12]/40 p-6 backdrop-blur-md">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-400">Total Files</span>
-              <Files className="text-indigo-400" size={20} />
+              <span className="text-sm font-medium text-zinc-400">
+                Total files
+              </span>
+
+              <Files
+                className="text-indigo-400"
+                size={20}
+              />
             </div>
+
             <div className="mt-4">
-              <h2 className="text-4xl font-extrabold tracking-tight">12</h2>
-              <p className="text-zinc-500 text-xs mt-2.5 flex items-center gap-1">
-                <span className="text-emerald-400 font-semibold">100% Encrypted</span>
+              <h2 className="text-4xl font-extrabold tracking-tight">
+                12
+              </h2>
+
+              <p className="mt-2.5 flex items-center gap-1 text-xs text-zinc-500">
+                <span className="font-semibold text-emerald-400">
+                  100% encrypted
+                </span>
+
                 <span>using server-side AES-GCM</span>
               </p>
             </div>
           </div>
 
-          {/* Quick stats 2 */}
-          <div className="bg-[#0b0d12]/40 border border-white/5 p-6 rounded-2xl backdrop-blur-md flex flex-col justify-between min-h-[180px]">
+          <div className="flex min-h-[180px] flex-col justify-between rounded-2xl border border-white/5 bg-[#0b0d12]/40 p-6 backdrop-blur-md">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-zinc-400">Active Shares</span>
-              <Share2 className="text-purple-400" size={20} />
+              <span className="text-sm font-medium text-zinc-400">
+                Active shares
+              </span>
+
+              <Share2
+                className="text-purple-400"
+                size={20}
+              />
             </div>
+
             <div className="mt-4">
-              <h2 className="text-4xl font-extrabold tracking-tight">3</h2>
-              <p className="text-zinc-500 text-xs mt-2.5">
-                2 Public links, 1 shared with email
+              <h2 className="text-4xl font-extrabold tracking-tight">
+                3
+              </h2>
+
+              <p className="mt-2.5 text-xs text-zinc-500">
+                2 public links and 1 email share
               </p>
             </div>
           </div>
         </div>
 
-        {/* Security / Action Alert Banner */}
-        <div className="bg-gradient-to-r from-blue-900/10 via-indigo-900/5 to-transparent border border-blue-500/10 p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Security banner */}
+        <div className="flex flex-col justify-between gap-4 rounded-2xl border border-blue-500/10 bg-gradient-to-r from-blue-900/10 via-indigo-900/5 to-transparent p-6 md:flex-row md:items-center">
           <div className="flex items-start gap-4">
-            <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
               <Shield size={20} />
             </div>
+
             <div>
-              <h3 className="font-semibold text-white">Your security is our priority</h3>
-              <p className="text-zinc-400 text-sm font-light mt-1 max-w-[620px]">
-                Vaultway only ever hosts your encrypted file data (ciphertext). The keys required to decrypt files are safely negotiated on the fly and never stored in the database.
+              <h3 className="font-semibold text-white">
+                Your security is our priority
+              </h3>
+
+              <p className="mt-1 max-w-[620px] text-sm font-light text-zinc-400">
+                Vaultway stores encrypted file data. The keys
+                required to decrypt files are negotiated securely
+                and are never stored directly with the encrypted
+                file content.
               </p>
             </div>
           </div>
-          <button className="text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-4 py-2.5 rounded-xl hover:bg-blue-500/20 transition-all self-start md:self-center">
+
+          <button
+            type="button"
+            className="self-start rounded-xl border border-blue-500/20 bg-blue-500/10 px-4 py-2.5 text-xs font-semibold text-blue-400 transition-all hover:bg-blue-500/20 md:self-center"
+          >
             View encryption details
           </button>
         </div>
 
-        {/* Placeholder file list */}
-        <div className="bg-[#0b0d12]/40 border border-white/5 rounded-2xl flex-1 p-6 backdrop-blur-md min-h-[300px] flex flex-col">
-          <div className="flex justify-between items-center pb-4 border-b border-white/5">
-            <h3 className="font-bold text-lg">My Vault Files</h3>
-            <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+        {/* File manager placeholder */}
+        <div className="flex min-h-[300px] flex-1 flex-col rounded-2xl border border-white/5 bg-[#0b0d12]/40 p-6 backdrop-blur-md">
+          <div className="flex items-center justify-between border-b border-white/5 pb-4">
+            <h3 className="text-lg font-bold">
+              My Vault Files
+            </h3>
+
+            <button
+              type="button"
+              className="flex items-center gap-1 text-xs text-blue-400 transition-colors hover:text-blue-300"
+            >
               <RefreshCw size={12} />
-              <span>Sync Status</span>
+              <span>Sync status</span>
             </button>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center py-10 text-center">
-            <Files className="text-zinc-700 mb-3" size={48} strokeWidth={1} />
-            <h4 className="font-medium text-zinc-300">File manager arriving in Phase 3</h4>
-            <p className="text-zinc-500 text-sm font-light mt-1 max-w-sm">
-              We&apos;ve successfully set up Phase 2 auth. Once Phase 3 begins, your decrypted files will appear here dynamically.
+
+          <div className="flex flex-1 flex-col items-center justify-center py-10 text-center">
+            <Files
+              className="mb-3 text-zinc-700"
+              size={48}
+              strokeWidth={1}
+            />
+
+            <h4 className="font-medium text-zinc-300">
+              File manager arriving in Phase 3
+            </h4>
+
+            <p className="mt-1 max-w-sm text-sm font-light text-zinc-500">
+              Phase 2 authentication is ready. Once Phase 3 begins,
+              your files will appear here dynamically.
             </p>
           </div>
         </div>
