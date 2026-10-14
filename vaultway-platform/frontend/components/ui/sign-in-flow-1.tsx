@@ -47,7 +47,7 @@ function MiniNavbar() {
 
   const logoElement = (
     <Link href="/" className="flex items-center gap-2">
-      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 font-bold text-white text-xs">
+      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-b from-[#efd3b4] to-[#c4844a] font-bold text-[#1c120c] text-xs">
         V
       </div>
       <span className="text-sm font-semibold tracking-tight text-white">
@@ -78,7 +78,7 @@ function MiniNavbar() {
       className="relative group w-full sm:w-auto text-center"
     >
       <div className="absolute inset-0 -m-1 rounded-full hidden sm:block bg-gray-100 opacity-20 filter blur-md pointer-events-none transition-all duration-300 ease-out group-hover:opacity-40 group-hover:blur-lg"></div>
-      <button className="relative z-10 w-full px-4 py-2 text-xs font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200">
+      <button className="relative z-10 w-full px-4 py-2 text-xs font-semibold text-[#1c120c] bg-gradient-to-b from-[#efd3b4] to-[#c4844a] rounded-full hover:brightness-110 transition-all duration-200">
         Sign up
       </button>
     </Link>
@@ -91,7 +91,7 @@ function MiniNavbar() {
         "flex flex-col items-center",
         "pl-6 pr-6 py-3 backdrop-blur-md",
         headerShapeClass,
-        "border border-white/10 bg-[#171b20]/60",
+        "border border-white/10 bg-[#14110e]/60",
         "w-[calc(100%-2rem)] sm:w-auto",
         "transition-[border-radius] duration-300 ease-in-out"
       )}
@@ -278,7 +278,7 @@ export const SignInFlowLayout = ({
                   className="space-y-6"
                 >
                   <div className="text-center space-y-2">
-                    <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white bg-gradient-to-r from-white via-white to-zinc-400 bg-clip-text text-transparent">
+                    <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f6f1e8] bg-gradient-to-r from-[#f6f1e8] via-[#f3e0c8] to-[#c4844a] bg-clip-text text-transparent">
                       {title}
                     </h1>
                     <p className="text-zinc-400 font-light text-sm sm:text-base">
@@ -287,7 +287,7 @@ export const SignInFlowLayout = ({
                   </div>
 
                   {/* Form Content */}
-                  <div className="bg-[#0b0d12]/40 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl">
+                  <div className="bg-[#14110e]/70 border border-[#c4844a]/20 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl">
                     {children}
                   </div>
                 </motion.div>

@@ -3,38 +3,38 @@ import Link from 'next/link';
 const PRODUCTS = [
   {
     img: '/icon-cloud.png',
-    title: 'Cloud Vault',
-    desc: 'Vaultway offers 5 GB of free encrypted storage. Store files of any size, back up folders, sync across devices, and share with full control and zero-knowledge privacy.',
-    href: '/features',
-    linkText: 'Explore Vaults →',
+    title: 'Cloud Drive',
+    desc: 'Upload files, make folders, search, and track the 5 GB quota from the dashboard workspace.',
+    href: '/features/storage',
+    linkText: 'Explore storage →',
   },
   {
     img: '/icon-zap.png',
-    title: 'Secure Transfer',
-    desc: 'Send large files at full speed with client-side encryption. Built-in link expiry and password protection ensure your transfers stay private from sender to receiver.',
-    href: '/features',
-    linkText: 'Discover Transfers →',
+    title: 'Share links',
+    desc: 'Create a link with view or download access, optional password, expiry, and a view limit. Revoke it any time.',
+    href: '/features/sharing',
+    linkText: 'Explore sharing →',
   },
   {
     img: '/icon-lock.png',
-    title: 'Password Manager',
-    desc: 'Securely manage credentials across all devices with Vaultway Pass. Generate complex passwords and autofill logins stored safely with zero-knowledge encryption.',
-    href: '/solutions',
-    linkText: 'Get Vaultway Pass →',
+    title: 'AES-256-GCM design',
+    desc: 'The schema is built for AES-256-GCM ciphertext in a private Supabase bucket, with IV and auth tag stored per version.',
+    href: '/security',
+    linkText: 'Read the security model →',
   },
   {
     img: '/icon-objects.png',
-    title: 'Object Storage',
-    desc: 'Manage unlimited data with Vaultway S4, a scalable and affordable S3-compatible storage solution ideal for businesses, developers, and media professionals.',
-    href: '/solutions',
-    linkText: 'Discover Vaultway S4 →',
+    title: 'Media library',
+    desc: 'Images, video, and audio you upload to the drive also appear in the Media view for preview and download.',
+    href: '/features/media',
+    linkText: 'Explore media →',
   },
   {
     img: '/icon-chat.png',
-    title: 'Secure Rooms',
-    desc: 'Message your team, make one-on-one calls, or connect over video — all with end-to-end encryption. Also available to non-Vaultway users.',
-    href: '/solutions',
-    linkText: 'Discover Rooms →',
+    title: 'Activity and trash',
+    desc: 'Recents shows what changed. Trash holds deleted items until you restore them or delete them forever.',
+    href: '/features/storage',
+    linkText: 'See the workspace →',
   },
 ];
 
@@ -43,8 +43,23 @@ export default function ProductCards() {
     <section className="vw-cards-section">
       <div className="vw-cards-inner">
         <div className="vw-cards-header">
-          <h2>Store and share files, collaborate, and protect. All in one place.</h2>
-          <p>Vaultway combines zero-knowledge encrypted cloud storage with powerful tools to upload, download, and store your files with confidence. Share folders privately, collaborate in real time, chat securely, and manage passwords — all in one platform.</p>
+          <span className="eyebrow">One workspace</span>
+          <h2>
+            Store and share files
+            <br />
+            from <span className="vw-grad">one dashboard.</span>
+          </h2>
+          <p>
+            A private file workspace in the browser. Everything you keep, preview, and send lives in the same place.
+          </p>
+          <ul className="vw-cards-pills">
+            <li>Drive</li>
+            <li>Sharing</li>
+            <li>Media</li>
+            <li>Recents</li>
+            <li>Favourites</li>
+            <li>Trash</li>
+          </ul>
         </div>
         <div className="vw-cards-grid">
           {PRODUCTS.map((p) => (

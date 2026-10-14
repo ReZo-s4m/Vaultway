@@ -28,7 +28,7 @@ import styles from "./media.module.css";
 export const metadata: Metadata = {
   title: "Media Files | Vaultway",
   description:
-    "Upload, organise, play, and securely share photos, videos, and audio files with Vaultway.",
+    "Images you upload to Cloud Drive appear in the Media view. Preview and download work for small files kept in the browser.",
 };
 
 type MediaFeature = {
@@ -46,32 +46,32 @@ const mediaFeatures: MediaFeature[] = [
   {
     title: "Upload and collect media files with ease",
     description:
-      "Add photos, videos, and audio files from your device, or create a file request so friends, classmates, clients, and teammates can send media directly to you.",
+      "Add photos, videos, and audio from your device in Cloud Drive. Only images appear in the Media view.",
     action: "Start uploading media",
     href: "/sign-up",
     image: "/media-assets/image-holder-8.png",
-    alt: "Media files being uploaded to an online album",
+    alt: "Illustration of media files. Upload happens in Cloud Drive.",
     icon: CloudUpload,
   },
   {
-    title: "Organise everything with albums and gallery views",
+    title: "Browse media from the same drive",
     description:
-      "Group important moments into albums, browse only images and videos, and use search and filters to find the right file without opening every folder.",
-    action: "Create your first album",
+      "Open the Media page to see images you already uploaded. Search Cloud Drive by name when you need a specific file.",
+    action: "Open the Media view",
     href: "/sign-up",
     image: "/media-assets/image-holder-1-3.png",
-    alt: "Creating and searching a photo album",
+    alt: "Illustration of an album UI. Vaultway has no album product.",
     icon: Album,
     brandCover: true,
   },
   {
-    title: "Enjoy your photos, videos, and audio anywhere",
+    title: "Preview small images in the browser",
     description:
-      "Open your media from the web on desktop, tablet, or mobile. Preview images, play videos, listen to audio, and keep the same organised library across devices.",
+      "The Media view lists images from Cloud Drive. Small images and PDFs can preview if their bytes were kept locally. Video and audio playback are not built.",
     action: "Open Vaultway",
     href: "/sign-in",
     image: "/media-assets/image-holder-2-3.png",
-    alt: "Media library available across phone and computer",
+    alt: "Illustration of devices. Vaultway is a browser dashboard, not a mobile media app.",
     icon: Play,
   },
 ];
@@ -79,39 +79,39 @@ const mediaFeatures: MediaFeature[] = [
 const mediaHighlights = [
   {
     icon: Images,
-    title: "Albums",
+    title: "Media view",
     description:
-      "Group related photos and videos into organised collections.",
+      "See images from Cloud Drive in one place.",
   },
   {
     icon: Search,
-    title: "Gallery search",
+    title: "Drive search",
     description:
-      "Find media by folder, name, type, or recent activity.",
+      "Search Cloud Drive by file name. There is no separate gallery search.",
   },
   {
     icon: Film,
-    title: "Video playback",
+    title: "Video files",
     description:
-      "Preview stored videos without downloading them first.",
+      "Videos can sit in Cloud Drive as files. In-browser playback is not built.",
   },
   {
     icon: Headphones,
-    title: "Audio access",
+    title: "Audio files",
     description:
-      "Keep recordings and music together with your other files.",
+      "Audio can be stored as files. There is no music player in this project.",
   },
   {
     icon: Share2,
-    title: "Album sharing",
+    title: "File sharing",
     description:
-      "Share selected media without exposing the rest of your storage.",
+      "Share a media file with the same password, expiry, and revoke controls as any other file.",
   },
   {
     icon: Smartphone,
-    title: "Responsive access",
+    title: "Browser access",
     description:
-      "Browse your media library from desktop, tablet, or mobile.",
+      "Open Media in a desktop or phone browser. There is no camera-roll app.",
   },
 ];
 
@@ -126,19 +126,19 @@ const secureMediaPoints = [
     icon: Share2,
     title: "Controlled sharing",
     description:
-      "Create a specific link for a file or album and revoke it later.",
+      "Share one image with the same password, expiry, and revoke controls as any other file.",
   },
   {
     icon: Download,
-    title: "Original downloads",
+    title: "Downloads when bytes were kept",
     description:
-      "Keep the original file available when you need the full-quality version.",
+      "Small files stored in the browser workspace can download. Larger ones are metadata only in this demo.",
   },
   {
     icon: SlidersHorizontal,
     title: "Clear organisation",
     description:
-      "Use albums, gallery views, and filters instead of a single crowded folder.",
+      "Use Cloud Drive folders and the Media view. There are no albums or gallery filters.",
   },
 ];
 
@@ -151,17 +151,17 @@ const faqs = [
   {
     question: "Can I create photo and video albums?",
     answer:
-      "Yes. Albums let you group related photos and videos without changing the original file locations.",
+      "Not as a separate album product. Use folders in Cloud Drive, then open Media to browse images.",
   },
   {
-    question: "Can I share an album with someone who has no account?",
+    question: "Can I share media with someone who has no account?",
     answer:
-      "Yes. You can create a controlled sharing link for selected media or an album without exposing the rest of your workspace.",
+      "You can create a share link from the file. A public share page is not wired yet, so links are managed from Shared items.",
   },
   {
     question: "Can I play videos without downloading them?",
     answer:
-      "Yes. Supported video and audio files can be previewed from the Vaultway web interface.",
+      "Not in this project. Preview works for small images and PDFs that were kept locally. Video and audio are stored as files only.",
   },
   {
     question: "Are my media files public after upload?",
@@ -182,8 +182,9 @@ export default function MediaPage() {
               <h1>Keep every photo, video, and audio file in one place</h1>
 
               <p className={styles.heroDescription}>
-                Upload your media, organise it into albums, preview it from any
-                device, and share only the files or collections you choose.
+                Upload photos, video, and audio to Cloud Drive. The Media view
+                shows images. Share any file with the same link controls as the
+                rest of the workspace.
               </p>
 
               <div className={styles.heroActions}>
@@ -201,12 +202,12 @@ export default function MediaPage() {
               <div className={styles.heroMeta}>
                 <span>
                   <Check size={15} />
-                  Photos, videos, and audio
+                  Images in the Media view
                 </span>
 
                 <span>
                   <Check size={15} />
-                  Albums and gallery views
+                  Media view in the dashboard
                 </span>
 
                 <span>
@@ -219,7 +220,7 @@ export default function MediaPage() {
             <div className={styles.heroMedia}>
               <Image
                 src="/media-assets/Media_Album-1.png"
-                alt="Photo albums inside a cloud media library"
+                alt="Illustration of albums. The live feature is the dashboard Media view for images."
                 fill
                 priority
                 sizes="(max-width: 1050px) 100vw, 58vw"
@@ -238,7 +239,7 @@ export default function MediaPage() {
         <div className={styles.shell}>
           <div className={styles.featureHeading}>
             <p className={styles.eyebrow}>Your media, your way</p>
-            <h2>Upload, organise, and enjoy your files</h2>
+            <h2>Upload, preview, and share media</h2>
           </div>
 
           <div className={styles.featureList}>
@@ -297,12 +298,11 @@ export default function MediaPage() {
           <div className={styles.highlightsLayout}>
             <div className={styles.sectionHeading}>
               <p className={styles.eyebrow}>There is more</p>
-              <h2>Everything needed for a cleaner media library</h2>
+              <h2>The same drive, filtered to media</h2>
 
               <p>
-                Keep the feature set focused: useful organisation, playback, and
-                sharing without turning Vaultway into a complicated editing
-                platform.
+                Media is a view over files you already uploaded — not a separate
+                album product, camera roll, or editor.
               </p>
             </div>
 
@@ -332,7 +332,7 @@ export default function MediaPage() {
             <div className={styles.backupMedia}>
               <Image
                 src="/media-assets/backup-photos.png"
-                alt="Camera uploads and media recovery"
+                alt="Illustration of camera backup. Automatic phone uploads are not implemented."
                 fill
                 sizes="(max-width: 1050px) 100vw, 48vw"
                 className={styles.backupImage}
@@ -340,13 +340,12 @@ export default function MediaPage() {
             </div>
 
             <div className={styles.backupCopy}>
-              <p className={styles.eyebrow}>Protect important memories</p>
-              <h2>Keep recent photos easier to find and recover</h2>
+              <p className={styles.eyebrow}>Same controls as the drive</p>
+              <h2>Favourites, recents, and trash still apply</h2>
 
               <p>
-                Organise camera uploads in one place, keep recent media visible,
-                and provide a recovery path for files that were removed by
-                mistake.
+                Star a clip, find it in Recents, or recover it from Trash. Camera
+                backup and automatic phone uploads are not part of this project.
               </p>
 
               <div className={styles.secureMediaList}>
@@ -405,8 +404,8 @@ export default function MediaPage() {
 
             <div className={styles.formatItem}>
               <Upload size={30} />
-              <strong>Original files</strong>
-              <span>Keep full-quality downloads</span>
+              <strong>Other files</strong>
+              <span>Stay in Cloud Drive as files</span>
             </div>
           </div>
         </div>

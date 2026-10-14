@@ -28,6 +28,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [oauthNotice, setOauthNotice] = useState(false);
 
   const {
     register,
@@ -71,7 +72,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
           type="text"
           placeholder="developer@vaultway.com"
           {...register("identity")}
-          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm"
+          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm"
         />
         {errors.identity && (
           <p className="text-red-400 text-xs mt-1">{errors.identity.message}</p>
@@ -86,7 +87,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
           </label>
           <Link
             href="/forgot-password"
-            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+            className="text-xs text-[#e4c09a] hover:text-[#f3d7b8] transition-colors"
           >
             Forgot password?
           </Link>
@@ -96,7 +97,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             {...register("password")}
-            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm pr-11"
+            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm pr-11"
           />
           <button
             type="button"
@@ -115,7 +116,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full relative flex items-center justify-center font-semibold text-black bg-white rounded-xl py-3 hover:bg-zinc-100 transition-all text-sm mt-6 group overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed"
+        className="w-full relative flex items-center justify-center font-semibold text-[#1c120c] bg-gradient-to-b from-[#efd3b4] to-[#c4844a] rounded-xl py-3 hover:brightness-110 transition-all text-sm mt-6 group overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <Loader2 className="animate-spin text-black" size={18} />
@@ -147,6 +148,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
       {/* Google Button */}
       <button
         type="button"
+        onClick={() => setOauthNotice(true)}
         className="w-full flex items-center justify-center gap-2.5 bg-white/[0.03] hover:bg-white/[0.06] text-white border border-white/10 rounded-xl py-3 px-4 transition-colors text-sm"
       >
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -158,6 +160,13 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
         <span>Continue with Google</span>
       </button>
 
+      {oauthNotice && (
+        <p className="text-center text-[11px] text-zinc-500">
+          Google sign-in isn&apos;t wired up in this demo yet — use the email
+          and password fields above.
+        </p>
+      )}
+
       <p className="text-center text-xs text-zinc-500 pt-4">
         Don&apos;t have an account?{" "}
         <Link
@@ -166,6 +175,17 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
         >
           Sign up for free
         </Link>
+      </p>
+
+      <p className="text-center text-[11px] text-zinc-600 pt-1">
+        Exploring the demo? Sign in with{" "}
+        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-zinc-400">
+          test
+        </code>{" "}
+        /{" "}
+        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-zinc-400">
+          123456
+        </code>
       </p>
     </form>
   );

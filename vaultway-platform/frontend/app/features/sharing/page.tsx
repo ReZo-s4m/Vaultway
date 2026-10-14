@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   BarChart3,
-  Check,
   CloudDownload,
   FileKey2,
   FolderInput,
@@ -22,7 +21,7 @@ import styles from "./sharing.module.css";
 export const metadata: Metadata = {
   title: "Secure File Sharing | Vaultway",
   description:
-    "Share files and folders securely with controlled links, permissions, expiry dates, and file requests.",
+    "Share files with controlled links, view or download access, expiry dates, passwords, and revoke from the dashboard.",
 };
 
 type FeatureItem = {
@@ -43,82 +42,73 @@ type ShareSection = {
 
 const shareSections: ShareSection[] = [
   {
-    title: "Share your files and folders with anyone",
+    title: "Share a file from Cloud Drive",
     items: [
       {
-        title: "Share with a secure link",
+        title: "Create a link",
         description:
-          "Generate a link for a file or folder and send it to anyone, including people without a Vaultway account.",
+          "Open a file, choose Share, and copy the token. Shared items lists every link you made so you can revoke it later.",
         icon: Link2,
       },
       {
-        title: "Keep access private",
+        title: "The rest of the drive stays private",
         description:
-          "Shared content remains protected behind controlled access instead of exposing your complete workspace.",
+          "A link is for that one file. There is no folder invite, no teammate roles, and no public upload inbox.",
         icon: FileKey2,
       },
       {
         title: "Add extra protection",
         description:
-          "Use passwords, expiry dates, and manual revocation for sensitive files and time-limited access.",
+          "Optional password, expiry, view limit, and revoke. A public share page is not wired yet.",
         icon: ShieldCheck,
       },
     ],
-    action: "Start sharing securely",
-    href: "/sign-up",
+    action: "Open the workspace",
+    href: "/sign-in",
     image: "/share-assets/share-1.png",
-    alt: "Secure file sharing link interface",
+    alt: "Illustration of a share link. The live control is the dashboard Share dialog.",
   },
   {
-    title: "Give collaborators access to selected folders",
+    title: "View or download — that is the permission set",
     items: [
       {
-        title: "Work together",
+        title: "Two levels",
         description:
-          "Invite teammates, classmates, or clients into only the folders needed for a project.",
-        icon: Users,
-      },
-      {
-        title: "Set clear permissions",
-        description:
-          "Choose view-only, upload, edit, or full-access permissions for each collaborator.",
+          "The share dialog offers VIEW or DOWNLOAD. There is no upload, edit, or full-access collaborator role in this project.",
         icon: SlidersHorizontal,
       },
+      {
+        title: "No live folder sharing",
+        description:
+          "The picture on the right is an illustration. You share files, not a live shared folder with other accounts.",
+        icon: Users,
+      },
     ],
-    action: "Create a shared workspace",
-    href: "/sign-up",
+    action: "See how it works",
+    href: "/solutions",
     image: "/share-assets/share-2.5.png",
-    alt: "Shared folder permissions interface",
+    alt: "Illustration only. Folder collaborator permissions are not implemented.",
   },
   {
-    title: "Let people upload files without seeing your workspace",
-    description:
-      "Create a file request and share a public upload page. Other people can submit assignments, client files, photos, or project material without receiving access to the rest of your Vaultway storage.",
-    action: "Create a file request",
-    href: "/sign-up",
-    image: "/share-assets/share-3.png",
-    alt: "Public file request upload interface",
-  },
-  {
-    title: "Understand and manage shared links",
+    title: "Manage the links you created",
     items: [
       {
-        title: "Track link activity",
+        title: "Shared items",
         description:
-          "See whether a shared link was opened or downloaded so you can understand how recipients engage with it.",
+          "Every link from this workspace appears under Shared items so you can copy it again or revoke it.",
         icon: BarChart3,
       },
       {
-        title: "Import shared files",
+        title: "Cap views and revoke",
         description:
-          "Save files from a shared link directly into your Vaultway workspace without downloading and uploading them again.",
+          "Set a view limit when you create the link. There is no recipient analytics dashboard like opened-vs-downloaded charts.",
         icon: CloudDownload,
       },
     ],
-    action: "Explore sharing tools",
-    href: "/solutions",
+    action: "Open Shared items",
+    href: "/sign-in",
     image: "/share-assets/link-analytics-feature-1.png",
-    alt: "Shared link analytics interface",
+    alt: "Illustration of link analytics. Vaultway lists links; it does not show a live analytics product.",
   },
 ];
 
@@ -136,15 +126,15 @@ const sharingHighlights = [
     icon: LockKeyhole,
   },
   {
-    title: "Permission levels",
+    title: "View or download",
     description:
-      "Decide whether recipients can view, upload, edit, or manage content.",
+      "Those are the two permission choices on the share dialog.",
     icon: SlidersHorizontal,
   },
   {
-    title: "File requests",
+    title: "Revoke anytime",
     description:
-      "Collect files from people without exposing any other folder or document.",
+      "Turn a link off from Shared items when you no longer want it used.",
     icon: FolderInput,
   },
 ];
@@ -158,7 +148,7 @@ const faqs = [
   {
     question: "Does the recipient need a Vaultway account?",
     answer:
-      "Not for normal link sharing. A recipient can open the link and access the allowed file without creating an account.",
+      "The share dialog creates a public-style link. A dedicated public share page is not wired yet, so links are managed from Shared items in the dashboard.",
   },
   {
     question: "Can I stop someone from using a shared link?",
@@ -171,9 +161,9 @@ const faqs = [
       "Yes. You can assign an expiry date so access ends automatically without needing to revoke the link manually.",
   },
   {
-    question: "Can someone upload files without seeing my storage?",
+    question: "Can someone upload files into my drive?",
     answer:
-      "Yes. File requests provide a dedicated upload page. The sender can submit files but cannot browse the rest of your Vaultway workspace.",
+      "Not in this project. Recipients get a link you create. There is no file-request inbox or public upload page.",
   },
 ];
 
@@ -186,12 +176,12 @@ export default function SharingPage() {
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>Secure sharing</p>
 
-              <h1>Share files with anyone, from anywhere</h1>
+              <h1>Share a file with a controlled link</h1>
 
               <p className={styles.heroDescription}>
-                Send files and folders through controlled links, collaborate
-                with selected people, and decide exactly how long access should
-                remain available.
+                The live feature is the dashboard Share dialog: view or
+                download, optional password, expiry, view limit, and revoke.
+                Videos and pictures on this page are illustrations.
               </p>
 
               <div className={styles.heroActions}>
@@ -345,17 +335,16 @@ export default function SharingPage() {
             </div>
 
             <div className={styles.transferCopy}>
-              <p className={styles.eyebrow}>Quick transfer</p>
-              <h2>Send large files without creating a shared folder</h2>
+              <p className={styles.eyebrow}>Same share dialog</p>
+              <h2>There is no separate transfer product</h2>
 
               <p>
-                Use Vaultway Quick Transfer for one-off deliveries when the
-                recipient only needs to download a file. Keep Secure Sharing for
-                content that should remain available and manageable over time.
+                Sending a file is the same Cloud Drive share flow. The transfer
+                page explains that link again — it does not add another uploader.
               </p>
 
               <Link href="/features/transfer" className={styles.primaryButton}>
-                Explore Quick Transfer
+                See the share-link flow
                 <ArrowRight size={18} />
               </Link>
             </div>
@@ -397,8 +386,7 @@ export default function SharingPage() {
             <div className={styles.ctaCopy}>
               <h2>Start sharing securely with Vaultway</h2>
               <p>
-                Create controlled links, collect files, and manage access from
-                one private workspace.
+                Create a link from Cloud Drive and manage it under Shared items.
               </p>
             </div>
 

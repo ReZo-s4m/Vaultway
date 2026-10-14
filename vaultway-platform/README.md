@@ -62,7 +62,7 @@ npm install
 In the [Supabase dashboard](https://supabase.com/dashboard):
 
 1. **Create a project.** Note the database password you set.
-2. **Connection strings** — *Project Settings → Database → Connection string*:
+2. **Connection strings** — *Project Settings → Database → Connect*:
    - `DATABASE_URL`: the **pooled** (Transaction, port `6543`) URI. Append `?pgbouncer=true&connection_limit=1`.
    - `DIRECT_URL`: the **direct** (Session, port `5432`) URI. Prisma Migrate needs this.
 3. **API keys** — *Project Settings → API*: copy the **Project URL** and the **`service_role`** key (secret, server-only).
@@ -149,7 +149,7 @@ npx shadcn@latest add button input card dialog
 
 - **Frontend → Vercel:** set the project **Root Directory** to `frontend`; add `NEXT_PUBLIC_API_URL` pointing at the deployed API.
 - **Backend → Render:** Web Service with Root Directory `backend`, build `npm install`, start `npm run start`; run `npm run db:deploy` on release. Add all backend env vars.
-- **Database & Storage → Supabase:** already hosted; reuse the same project or create a production one.
+- **Database & Storage → Supabase:** reuse the same project or create a production one.
 
 ## Roadmap
 

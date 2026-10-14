@@ -10,9 +10,9 @@ export default function SecurityPage() {
       <div className="wrap">
         <div className="sec-top">
           <div data-reveal>
-            <span className="eyebrow">Zero-Trust Model</span>
-            <h2 className="h-sec">Privacy isn&apos;t a policy, it&apos;s the architecture</h2>
-            <p className="lead">Even if our backend databases are fully compromised, attackers only find ciphertext. Because Vaultway never has the keys, we cannot decipher your data.</p>
+            <span className="eyebrow">Storage model</span>
+            <h2 className="h-sec">AES-256-GCM into a private bucket</h2>
+            <p className="lead">Vaultway is designed to store ciphertext, not a public drive. Each file version keeps an AES-256-GCM IV and auth tag in PostgreSQL, and the object itself is meant for a private Supabase bucket.</p>
           </div>
           <div className="flow" data-reveal data-d="1">
             <div className="flow-row">
@@ -48,7 +48,7 @@ export default function SecurityPage() {
                 <rect x="3" y="11" width="18" height="11" rx="2" />
                 <path d="M7 11V7a5 5 0 0110 0v4" />
               </svg>
-              Client key: AES-GCM (256-bit) negotiation
+              AES-256-GCM per file version
             </div>
           </div>
         </div>
@@ -60,8 +60,8 @@ export default function SecurityPage() {
                 <path d="M7 11V7a5 5 0 0110 0v4" />
               </svg>
             </span>
-            <h4>Web Crypto API</h4>
-            <p>Standard cryptographic libraries run locally in your browser sandbox, eliminating external server dependencies.</p>
+            <h4>AES-256-GCM</h4>
+            <p>The planned pipeline uses AES-256-GCM on the API, with IV and auth tag stored on each file version in Prisma.</p>
           </div>
           <div className="sec-card" data-reveal data-d="1">
             <span className="sic">
@@ -70,8 +70,8 @@ export default function SecurityPage() {
                 <path d="M12 8v4M12 16h.01" />
               </svg>
             </span>
-            <h4>Zero Server Storage of Keys</h4>
-            <p>The encryption keys do not exist in the database, keeping files secure against backend security breaches.</p>
+            <h4>Private Supabase bucket</h4>
+            <p>File objects are designed for the private <code>vault-files</code> bucket. This project does not use AWS S3 or Cloudinary.</p>
           </div>
           <div className="sec-card" data-reveal data-d="2">
             <span className="sic">
@@ -79,8 +79,8 @@ export default function SecurityPage() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </span>
-            <h4>Client-Side Access Only</h4>
-            <p>Only recipients who hold the full URL link with hash credentials can download and decrypt shared documents.</p>
+            <h4>Controlled share links</h4>
+            <p>Links created in the dashboard can take a password, an expiry, a view limit, and can be revoked. Keys are not placed in the URL hash.</p>
           </div>
         </div>
       </div>

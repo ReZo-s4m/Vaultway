@@ -21,9 +21,9 @@ export default function SignUpPage() {
   return (
     <SignInFlowLayout
       title="Create account"
-      subtitle="Start protecting your files with AES-256 encryption"
+      subtitle="Create a Cloud Drive workspace"
       isSuccess={isSuccess}
-      successMessage="Generating secure workspace keys..."
+      successMessage="Opening your workspace..."
       onSuccessEnd={handleSuccessEnd}
     >
       <SignUpForm onSuccess={handleSuccess} />

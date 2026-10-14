@@ -19,10 +19,10 @@ export default function SecuritySlice() {
         <div className="vw-slice-text">
           <h2>Security that&rsquo;s always on</h2>
           <p>
-            We protect your data with zero-knowledge encryption, the highest level of online security and privacy. This means that only the data owner and authorised users have the keys needed to access data stored or shared on Vaultway.
+            Vaultway is designed to store files as AES-256-GCM ciphertext in a private Supabase bucket, with the IV and auth tag kept alongside each version in PostgreSQL.
           </p>
           <p>
-            For anyone else, including Vaultway, the data appears as encrypted noise and is impossible to read or understand.
+            Sharing stays on controlled links: optional password, expiry, view limits, and revoke from the dashboard. This is not a zero-knowledge product and does not hide keys in a URL hash.
           </p>
           <Link href="/security" className="vw-slice-link">
             More about security

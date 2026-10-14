@@ -21,16 +21,16 @@ const showcaseItems = [
     alt: "File sharing permissions interface",
   },
   {
-    title: "Collect files from other people",
+    title: "Keep favourites close",
     description:
-      "Use a request link so classmates, teammates, or clients can submit files without seeing the rest of your storage.",
+      "Star files and folders so they stay one click away in Favourites, without changing where they live in Cloud Drive.",
     image: "/storage-assets/Accordian-3.png",
-    alt: "File request upload interface",
+    alt: "Favourites in the Vaultway workspace",
   },
   {
     title: "Keep project material organised",
     description:
-      "Use folders, access levels, recent activity, and search to keep assignments and deliverables easy to find.",
+      "Use folders, Recents, search, and Favourites to keep assignments and deliverables easy to find.",
     image: "/storage-assets/Accordian-4.png",
     alt: "Collaborative project folder interface",
   },

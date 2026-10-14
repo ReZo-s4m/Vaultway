@@ -10,66 +10,61 @@ export function Footer() {
           <div className="foot-brand">
             <Link href="/" className="brand">
               <svg className="mark" viewBox="0 0 32 32" fill="none">
-                <ellipse cx="16" cy="16" rx="7.5" ry="12" stroke="#6db4f5" strokeWidth="1.6" />
-                <circle cx="16" cy="16" r="2.4" fill="#eef6ff" />
+                <ellipse cx="16" cy="16" rx="7.5" ry="12" stroke="#c4844a" strokeWidth="1.6" />
+                <circle cx="16" cy="16" r="2.4" fill="#fbf6ef" />
               </svg>
               Vaultway
             </Link>
-            <p>Encrypted file sharing where privacy is the architecture, not the policy.</p>
+            <p>Cloud-based secure file sharing for this project — AES-256-GCM and a private Supabase bucket.</p>
             <div className="foot-badges">
               <span className="fbadge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 3l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7z" />
                 </svg>
-                SOC 2 Type II
+                AES-256-GCM
               </span>
               <span className="fbadge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 3l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7z" />
                 </svg>
-                GDPR
+                Encrypted at rest
               </span>
               <span className="fbadge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 3l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7z" />
                 </svg>
-                HIPAA-ready
+                Privacy-first
               </span>
             </div>
           </div>
           <div className="foot-col">
             <h5>Product</h5>
-            <Link href="/features">Features</Link>
+            <Link href="/features/storage">Features</Link>
             <Link href="/security">Security</Link>
             <Link href="/solutions">How it works</Link>
-            <Link href="/">Dashboard</Link>
+            <Link href="/pricing">Pricing</Link>
           </div>
           <div className="foot-col">
             <h5>Resources</h5>
             <Link href="/resources">FAQ</Link>
-            <a href="#">Blog</a>
-            <a href="#">Guides</a>
-            <a href="#">Status</a>
-            <a href="#">Changelog</a>
+            <Link href="/solutions">How it works</Link>
+            <Link href="/pricing">Pricing</Link>
           </div>
           <div className="foot-col">
-            <h5>Developers</h5>
-            <a href="#">API reference</a>
-            <a href="#">Documentation</a>
-            <a href="#">SDKs</a>
-            <a href="#">Webhooks</a>
+            <h5>Workspace</h5>
+            <Link href="/sign-in">Sign in</Link>
+            <Link href="/sign-up">Sign up</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </div>
           <div className="foot-col">
-            <h5>Company</h5>
-            <a href="#">About</a>
-            <a href="#">Security whitepaper</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <Link href="/#contact">Contact</Link>
+            <h5>More</h5>
+            <Link href="/features/media">Media</Link>
+            <Link href="/features/transfer">Send a link</Link>
+            <Link href="/resources">About the project</Link>
           </div>
         </div>
         <div className="foot-bottom">
-          <span className="cp">&copy; {new Date().getFullYear()} Vaultway, Inc. All rights reserved.</span>
+          <span className="cp">&copy; {new Date().getFullYear()} Vaultway — CVR College of Engineering project.</span>
           <div className="foot-social">
             <a href="#" aria-label="X">
               <svg viewBox="0 0 24 24" fill="currentColor">

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Check,
   CloudDownload,
   Database,
   FileText,
@@ -23,7 +22,7 @@ const featureSections = [
   {
     title: "Get the right amount of storage",
     description:
-      "Keep documents, images, videos, and project files together in one organised Vaultway workspace. View storage usage clearly and upgrade only when you need more room.",
+      "Keep documents, images, videos, and project files together in one organised Vaultway workspace. The dashboard shows used space against the 5 GB quota.",
     action: "Create your workspace",
     href: "/sign-up",
     image: "/storage-assets/Feature-1.png",
@@ -32,29 +31,29 @@ const featureSections = [
   {
     title: "Fast downloads and uploads",
     description:
-      "Upload multiple files, follow progress in real time, and download your data through a simple transfer experience designed to avoid unnecessary steps.",
-    action: "Start uploading",
-    href: "/sign-up",
+      "Drop files into Cloud Drive from the dashboard. Small files stay available for preview and download in this browser workspace. There is no separate transfer manager or server upload progress bar yet.",
+    action: "Open Cloud Drive",
+    href: "/sign-in",
     image: "/storage-assets/Fast-downloads-and-uploads.png",
-    alt: "File transfer manager",
+    alt: "Illustration of files being added to a workspace",
   },
   {
     title: "Store securely and privately",
     description:
-      "Files remain private by default and are accessed through authenticated requests. Add another layer of control using protected links, expiration times, and account security.",
+      "Your drive is private to the account you sign in with. Extra control is on share links: optional password, expiry, view limit, and revoke. There is no 2FA or verification-code step like the picture on the right.",
     action: "Explore security",
     href: "/security",
     image: "/storage-assets/Feature-3.png",
-    alt: "Password and verification interface",
+    alt: "Decorative lock graphic. Vaultway uses sign-in and share-link passwords, not a verification code.",
   },
   {
-    title: "Access your files on the go",
+    title: "Access your files in the browser",
     description:
-      "Open Vaultway from a desktop, tablet, or mobile browser to find recent files, browse folders, and download what you need from anywhere.",
+      "Sign in on a desktop or phone browser to open Cloud Drive, Recents, and Trash. There is no desktop or mobile app in this project.",
     action: "Open Vaultway",
     href: "/sign-in",
     image: "/storage-assets/MEGA-Cloud-Access-files-on-the-go.png",
-    alt: "Person accessing cloud files on a mobile device",
+    alt: "Person using a web browser to open files",
   },
 ];
 
@@ -91,12 +90,12 @@ const faqs = [
   {
     question: "What is Vaultway cloud storage?",
     answer:
-      "Vaultway cloud storage is an online workspace where you can upload, organise, access, download, and securely share files.",
+      "In this project it is the Cloud Drive dashboard: upload, folders, search, quota, trash, and share links. Files currently stay in the browser workspace. The planned backend store is a private Supabase bucket.",
   },
   {
     question: "Are my uploaded files public?",
     answer:
-      "No. Files are private by default and only become accessible to another person when you intentionally create a controlled sharing link.",
+      "No. Only your signed-in session sees Cloud Drive. Another person only gets access if you create a share link, and a public share page is not wired yet.",
   },
   {
     question: "Which file types can I store?",
@@ -111,7 +110,7 @@ const faqs = [
   {
     question: "Can I use Vaultway on my phone?",
     answer:
-      "Yes. The responsive web dashboard is designed to work on desktop, tablet, and mobile browsers.",
+      "Yes, in a mobile browser. There is no Vaultway iOS or Android app, and no desktop sync client.",
   },
 ];
 
@@ -126,8 +125,9 @@ export default function StoragePage() {
             <h1>Securely store, manage, and share your data online</h1>
 
             <p className={styles.heroText}>
-              Vaultway gives you one private place for files and folders, with
-              authenticated access and controlled sharing links.
+              Cloud Drive is the live workspace: upload, folders, search, a 5 GB
+              quota, trash, and share links. The pictures on this page are
+              illustrations, not extra products.
             </p>
 
             <div className={styles.heroActions}>
@@ -209,7 +209,7 @@ export default function StoragePage() {
           <div className={styles.benefitsLayout}>
             <div className={styles.sectionHeading}>
               <p className={styles.eyebrow}>Made for everyday work</p>
-              <h2>What users will appreciate</h2>
+              <h2>What the dashboard already does</h2>
             </div>
 
             <div className={styles.benefitsGrid}>

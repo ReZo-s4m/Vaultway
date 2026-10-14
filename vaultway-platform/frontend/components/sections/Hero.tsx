@@ -504,7 +504,7 @@ export default function Hero() {
 
       <div className="vw-hero-text" ref={textRef}>
         <span className="eyebrow">
-          End-to-end encrypted · Zero-knowledge
+          Cloud-based secure file sharing
         </span>
 
         <h1>
@@ -513,9 +513,9 @@ export default function Hero() {
         </h1>
 
         <p className="vw-hero-sub">
-          Vaultway locks every file on your device before it
-          ever leaves. Share a link only the right people —
-          and no one at Vaultway — can open.
+          Upload, organise, and share files from one private
+          dashboard. Vaultway is designed around AES-256-GCM
+          and a private Supabase bucket — not a public drive.
         </p>
 
         <div className="vw-hero-buttons">
@@ -554,17 +554,17 @@ export default function Hero() {
         <div className="vw-hero-meta">
           <span>
             <CheckIcon />
-            No credit card
+            Browser workspace
           </span>
 
           <span>
             <CheckIcon />
-            5 GB free forever
+            5 GB quota
           </span>
 
           <span>
             <CheckIcon />
-            SOC 2 Type II
+            Password and expiry on links
           </span>
         </div>
       </div>
@@ -587,4 +587,5 @@ function CheckIcon() {
     </svg>
   );
 }
+
 

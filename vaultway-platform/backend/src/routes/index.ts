@@ -1,18 +1,28 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import healthRoutes from './health.route';
 
-const router = Router();
+export const apiRouter = Router();
 
-router.use('/health', healthRoutes);
+apiRouter.use('/health', healthRoutes);
 
-// --- Wired in later phases -------------------------------------------------
-// router.use('/auth', authRoutes);            // Phase 2
-// router.use('/users', userRoutes);           // Phase 2
-// router.use('/files', fileRoutes);           // Phase 3-4
-// router.use('/folders', folderRoutes);       // Phase 3
-// router.use('/shares', shareRoutes);         // Phase 5
-// router.use('/activity', activityRoutes);    // Phase 5
-// router.use('/notifications', notifRoutes);  // Phase 6
-// router.use('/admin', adminRoutes);          // Phase 6
+apiRouter.use(
+  rateLimit({
+    windowMs: 60_000,
+    limit: 90,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+  }),
+);
 
-export default router;
+// --- Wired in later phases (same mount style as the reference API) ---------
+// apiRouter.use('/auth', authRoutes);
+// apiRouter.use('/users', requireAuth, userRoutes);
+// apiRouter.use('/files', requireAuth, fileRoutes);
+// apiRouter.use('/folders', requireAuth, folderRoutes);
+// apiRouter.use('/shares', requireAuth, shareRoutes);
+// apiRouter.use('/activity', requireAuth, activityRoutes);
+// apiRouter.use('/notifications', requireAuth, notifRoutes);
+// apiRouter.use('/admin', requireAuth, requireRole('ADMIN'), adminRoutes);
+
+export default apiRouter;

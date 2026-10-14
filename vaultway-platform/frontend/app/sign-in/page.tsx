@@ -21,9 +21,9 @@
     return (
       <SignInFlowLayout
         title="Welcome back"
-        subtitle="Access your secure files from anywhere"
+        subtitle="Open your Cloud Drive workspace"
         isSuccess={isSuccess}
-        successMessage="Decrypting your private key..."
+        successMessage="Opening your workspace..."
         onSuccessEnd={handleSuccessEnd}
       >
         <SignInForm onSuccess={handleSuccess} />

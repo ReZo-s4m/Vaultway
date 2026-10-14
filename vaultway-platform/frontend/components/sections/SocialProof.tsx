@@ -1,4 +1,4 @@
-import { Users, Shield, Globe, HelpCircle } from 'lucide-react';
+import { HardDrive, Link2, Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SocialProof() {
@@ -7,14 +7,14 @@ export default function SocialProof() {
       <div className="wrap">
         <div className="proof-grid">
           <div className="proof-left" data-reveal>
-            <span className="eyebrow" style={{ textAlign: 'left', margin: '0 0 10px' }}>Global Trust</span>
-            <h3>Millions of secure shares, audited and trusted globally</h3>
+            <span className="eyebrow" style={{ textAlign: 'left', margin: '0 0 10px' }}>The project</span>
+            <h3>A private workspace for files you actually share</h3>
             <p>
-              Vaultway is built for teams who cannot compromise on confidentiality. From medical charts to financial records, join thousands of professionals sharing and collaborating securely daily.
+              Vaultway is a college major project for cloud-based secure file sharing. Sign in, upload to Cloud Drive, organise folders, and send a link with password, expiry, and view limits.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <Link href="/sign-up" className="btn btn-primary">
-                Sign up free
+                Open the workspace
               </Link>
             </div>
           </div>
@@ -22,23 +22,23 @@ export default function SocialProof() {
           <div className="proof-right" data-reveal data-d="1">
             <div className="proof-stat">
               <div className="proof-stat-icon">
-                <Users />
+                <HardDrive />
               </div>
               <div className="proof-stat-info">
-                <h5>Registered Vaults</h5>
-                <div className="num">500K+</div>
+                <h5>Workspace quota</h5>
+                <div className="num">5 GB</div>
               </div>
             </div>
 
             <div className="proof-divider" />
 
             <div className="proof-stat">
-              <div className="proof-stat-icon" style={{ backgroundColor: 'rgba(109, 180, 245, 0.1)', color: 'var(--glow)' }}>
+              <div className="proof-stat-icon" style={{ backgroundColor: 'rgba(196, 132, 74, 0.1)', color: 'var(--glow)' }}>
                 <Shield />
               </div>
               <div className="proof-stat-info">
-                <h5>Files Protected</h5>
-                <div className="num">10M+</div>
+                <h5>Storage cipher</h5>
+                <div className="num">AES-256</div>
               </div>
             </div>
 
@@ -46,11 +46,11 @@ export default function SocialProof() {
 
             <div className="proof-stat">
               <div className="proof-stat-icon" style={{ backgroundColor: 'rgba(231, 194, 106, 0.1)', color: '#e7c26a' }}>
-                <Globe />
+                <Link2 />
               </div>
               <div className="proof-stat-info">
-                <h5>Countries Served</h5>
-                <div className="num">150+</div>
+                <h5>Share controls</h5>
+                <div className="num">Links</div>
               </div>
             </div>
           </div>

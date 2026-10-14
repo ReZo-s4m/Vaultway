@@ -29,8 +29,8 @@ const featureItems = [
     icon: Share2,
   },
   {
-    title: "Quick transfer",
-    description: "Send large files quickly and safely",
+    title: "Send a link",
+    description: "Share a file with password and expiry",
     href: "/features/transfer",
     icon: Send,
   },
@@ -49,11 +49,11 @@ export function Header() {
 
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#171b20]/95 text-white backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-[#c4844a]/15 bg-[#14110e]/95 text-[#f6f1e8] backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 lg:px-8">
         <div className="flex items-center gap-12">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500 font-bold text-white">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-b from-[#efd3b4] to-[#c4844a] font-bold text-[#1c120c]">
               V
             </div>
 
@@ -66,7 +66,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setFeaturesOpen((current) => !current)}
-              className="group flex h-[72px] items-center gap-2 border-b-2 border-transparent text-sm font-medium text-zinc-200 transition hover:border-blue-500 hover:text-white"
+              className="group flex h-[72px] items-center gap-2 border-b-2 border-transparent text-sm font-medium text-[#ddd0c0] transition hover:border-[#c4844a] hover:text-[#f6f1e8]"
               aria-expanded={featuresOpen}
             >
               Features
@@ -81,27 +81,23 @@ export function Header() {
 
             <Link
               href="/security"
-              className="text-sm font-medium text-zinc-200 transition hover:text-white"
+              className="text-sm font-medium text-[#ddd0c0] transition hover:text-[#f6f1e8]"
             >
               Security
             </Link>
 
             <Link
               href="/solutions"
-              className="flex items-center gap-2 text-sm font-medium text-zinc-200 transition hover:text-white"
+              className="text-sm font-medium text-[#ddd0c0] transition hover:text-[#f6f1e8]"
             >
               Solutions
-              <ChevronDown size={17} />
             </Link>
-
-
 
             <Link
               href="/resources"
-              className="flex items-center gap-2 text-sm font-medium text-zinc-200 transition hover:text-white"
+              className="text-sm font-medium text-[#ddd0c0] transition hover:text-[#f6f1e8]"
             >
               Resources
-              <ChevronDown size={17} />
             </Link>
           </nav>
         </div>
@@ -111,14 +107,14 @@ export function Header() {
             <>
               <Link
                 href="/sign-in"
-                className="rounded-lg border border-zinc-500 px-5 py-2.5 text-sm font-medium transition hover:border-white"
+                className="rounded-lg border border-[#c4844a]/45 px-5 py-2.5 text-sm font-medium text-[#f6f1e8] transition hover:border-[#e8c9a4]"
               >
                 Log in
               </Link>
 
               <Link
                 href="/sign-up"
-                className="rounded-lg bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-white"
+                className="rounded-lg bg-gradient-to-b from-[#efd3b4] to-[#c4844a] px-5 py-2.5 text-sm font-semibold text-[#1c120c] transition hover:brightness-110"
               >
                 Sign up
               </Link>
@@ -127,7 +123,7 @@ export function Header() {
             <>
               <Link
                 href="/dashboard"
-                className="rounded-lg bg-[#1f2937]/50 hover:bg-[#1f2937] border border-white/5 px-5 py-2.5 text-sm font-medium transition"
+                className="rounded-lg bg-[#2a221c]/50 hover:bg-[#2a221c] border border-white/5 px-5 py-2.5 text-sm font-medium transition"
               >
                 Dashboard
               </Link>
@@ -155,7 +151,7 @@ export function Header() {
       </div>
 
       {featuresOpen && (
-        <div className="absolute left-0 right-0 top-full hidden border-b border-white/10 bg-[#1d2228] shadow-2xl lg:block">
+        <div className="absolute left-0 right-0 top-full hidden border-b border-white/10 bg-[#1c1814] shadow-2xl lg:block">
           <div className="mx-auto max-w-[1280px] px-8 py-12">
             <p className="mb-7 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
               Features
@@ -172,7 +168,7 @@ export function Header() {
                     onClick={() => setFeaturesOpen(false)}
                     className="group flex gap-4 rounded-xl p-3 transition hover:bg-white/[0.04]"
                   >
-                    <div className="mt-0.5 text-zinc-400 transition group-hover:text-blue-400">
+                    <div className="mt-0.5 text-[#8d7d6c] transition group-hover:text-[#e4c09a]">
                       <Icon size={23} strokeWidth={1.7} />
                     </div>
 
@@ -192,7 +188,7 @@ export function Header() {
       )}
 
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-[#1d2228] px-5 py-6 lg:hidden">
+        <div className="border-t border-white/10 bg-[#1c1814] px-5 py-6 lg:hidden">
           <div className="space-y-2">
             <button
               type="button"
@@ -253,7 +249,7 @@ export function Header() {
                   </Link>
                   <Link
                     href="/sign-up"
-                    className="block w-full text-center rounded-lg bg-zinc-100 py-2.5 text-sm font-semibold text-zinc-950"
+                    className="block w-full text-center rounded-lg bg-gradient-to-b from-[#efd3b4] to-[#c4844a] py-2.5 text-sm font-semibold text-[#1c120c]"
                     onClick={() => setMobileOpen(false)}
                   >
                     Sign up
@@ -263,7 +259,7 @@ export function Header() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="block w-full text-center rounded-lg bg-[#1f2937]/50 border border-white/5 py-2.5 text-sm font-medium"
+                    className="block w-full text-center rounded-lg bg-[#2a221c]/50 border border-white/5 py-2.5 text-sm font-medium"
                     onClick={() => setMobileOpen(false)}
                   >
                     Dashboard

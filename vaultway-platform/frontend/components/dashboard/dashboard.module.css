@@ -1,16 +1,16 @@
 .dashboard {
-  --dashboard-bg: #101214;
-  --dashboard-sidebar: #1b1e22;
-  --dashboard-sidebar-active: #262a2f;
-  --dashboard-panel: #171a1e;
-  --dashboard-panel-raised: #20242a;
-  --dashboard-border: rgba(255, 255, 255, 0.09);
-  --dashboard-border-strong: rgba(255, 255, 255, 0.16);
-  --dashboard-text: #f7f8fa;
-  --dashboard-muted: #a7adb6;
-  --dashboard-muted-2: #737b86;
-  --dashboard-blue: #3675f5;
-  --dashboard-blue-soft: rgba(54, 117, 245, 0.14);
+  --dashboard-bg: #100e0c;
+  --dashboard-sidebar: #181410;
+  --dashboard-sidebar-active: #8d5a34;
+  --dashboard-panel: #1a1613;
+  --dashboard-panel-raised: #241e19;
+  --dashboard-border: rgba(212, 176, 140, 0.14);
+  --dashboard-border-strong: rgba(212, 176, 140, 0.28);
+  --dashboard-text: #f6f1e8;
+  --dashboard-muted: #c4b5a4;
+  --dashboard-muted-2: #8d7d6c;
+  --dashboard-blue: #c4844a;
+  --dashboard-blue-soft: rgba(196, 132, 74, 0.14);
   --sidebar-width: 260px;
   --topbar-height: 64px;
 
@@ -155,7 +155,7 @@
   gap: 13px;
   padding: 0 13px;
   border-radius: 10px;
-  color: #e9ecf1;
+  color: #f3ece3;
   text-decoration: none;
   transition: background 150ms ease, color 150ms ease;
 }
@@ -165,8 +165,8 @@
 }
 
 .navItemActive {
-  color: #fff;
-  background: var(--dashboard-sidebar-active);
+  color: #fbf6ef;
+  background: linear-gradient(180deg, #c8884f, #8d5a34);
 }
 
 .navItemActive::before {
@@ -472,7 +472,7 @@
 .panelPrimaryButton {
   margin-top: 24px;
   padding: 0 18px;
-  color: #101214;
+  color: #100e0c;
   background: #f5f6f8;
   font-weight: 720;
 }
@@ -676,7 +676,7 @@
   padding: 8px;
   border: 1px solid var(--dashboard-border-strong);
   border-radius: 12px;
-  background: #171a1e;
+  background: #1a1613;
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
 }
 
@@ -799,7 +799,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 36px;
-  color: #9ab6ff;
+  color: #e4c09a;
   background: var(--dashboard-blue-soft);
 }
 
@@ -826,8 +826,8 @@
   left: 25px;
   width: 80px;
   height: 78px;
-  color: #9eb6ff;
-  background: #253658;
+  color: #e4c09a;
+  background: #3a2a1e;
   transform: rotate(-12deg);
 }
 
@@ -836,7 +836,7 @@
   width: 94px;
   height: 82px;
   color: #fff;
-  background: linear-gradient(145deg, #3977f7, #6a8eff);
+  background: linear-gradient(145deg, #c4844a, #e4c09a);
   transform: rotate(8deg);
 }
 
@@ -845,8 +845,8 @@
   bottom: 16px;
   width: 70px;
   height: 67px;
-  color: #d9e3ff;
-  background: #252a35;
+  color: #f3e6d4;
+  background: #2a221c;
   transform: rotate(-8deg);
 }
 
@@ -855,7 +855,7 @@
   width: 85px;
   height: 135px;
   border-radius: 24px;
-  background: linear-gradient(150deg, #5579f6, #21293b);
+  background: linear-gradient(150deg, #a86b38, #1c1612);
   transform: rotate(8deg);
 }
 
@@ -1157,7 +1157,7 @@
 
 .settingCard:hover {
   border-color: rgba(108, 148, 255, 0.32);
-  background: rgba(54, 117, 245, 0.06);
+  background: rgba(196, 132, 74, 0.06);
 }
 
 .settingCard > span {
@@ -1359,5 +1359,34 @@
 
   .accountStats {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Added: full-screen auth loader (used by DashboardShell guard) ---- */
+.fullscreenLoader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 100svh;
+  background: var(--dashboard-bg, #100e0c);
+  color: var(--dashboard-muted, #c4b5a4);
+}
+.fullscreenLoader p {
+  font-size: 0.9rem;
+}
+.loaderSpin {
+  color: #c4844a;
+  animation: dashboard-spin 0.9s linear infinite;
+}
+@keyframes dashboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loaderSpin {
+    animation-duration: 2.4s;
   }
 }

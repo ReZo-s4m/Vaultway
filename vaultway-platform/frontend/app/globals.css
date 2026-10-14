@@ -28,25 +28,25 @@
   }
 
   .dark {
-    --background: 215 45% 6%;
-    --foreground: 213 40% 96%;
-    --card: 216 40% 9%;
-    --card-foreground: 213 40% 96%;
-    --popover: 216 40% 9%;
-    --popover-foreground: 213 40% 96%;
-    --primary: 210 92% 66%;
-    --primary-foreground: 214 100% 8%;
-    --secondary: 216 34% 15%;
-    --secondary-foreground: 213 40% 96%;
-    --muted: 216 34% 15%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 216 34% 18%;
-    --accent-foreground: 213 40% 96%;
+    --background: 30 14% 5%;
+    --foreground: 36 38% 94%;
+    --card: 30 12% 8%;
+    --card-foreground: 36 38% 94%;
+    --popover: 30 12% 8%;
+    --popover-foreground: 36 38% 94%;
+    --primary: 28 48% 53%;
+    --primary-foreground: 30 28% 10%;
+    --secondary: 30 10% 13%;
+    --secondary-foreground: 36 38% 94%;
+    --muted: 30 10% 13%;
+    --muted-foreground: 30 16% 68%;
+    --accent: 28 24% 16%;
+    --accent-foreground: 36 38% 94%;
     --destructive: 0 63% 45%;
-    --destructive-foreground: 213 40% 96%;
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 210 92% 66%;
+    --destructive-foreground: 36 38% 94%;
+    --border: 30 12% 18%;
+    --input: 30 12% 18%;
+    --ring: 28 48% 53%;
   }
 }
 
@@ -76,14 +76,14 @@
 }
 
 :root {
-  --page-bg: #050507;
-  --surface-bg: #0b0d12;
-  --surface-raised: #111319;
+  --page-bg: #0e0c0a;
+  --surface-bg: #14110e;
+  --surface-raised: #1e1a16;
 
   --void: var(--page-bg);
   --abyss: var(--page-bg);
-  --deep: #0b0d12;
-  --steel: #121722;
+  --deep: #14110e;
+  --steel: #1c1814;
 }
 
 html,
@@ -142,7 +142,7 @@ body,
   height: calc(100svh - 72px);
 
   overflow: hidden;
-  background: #050507;
+  background: #0e0c0a;
   isolation: isolate;
 }
 
@@ -181,16 +181,16 @@ body,
   background:
     linear-gradient(
       90deg,
-      rgba(5, 5, 7, 0.8) 0%,
-      rgba(5, 5, 7, 0.46) 30%,
-      rgba(5, 5, 7, 0.06) 62%,
-      rgba(5, 5, 7, 0.1) 100%
+      rgba(14, 12, 10, 0.8) 0%,
+      rgba(14, 12, 10, 0.46) 30%,
+      rgba(14, 12, 10, 0.06) 62%,
+      rgba(14, 12, 10, 0.1) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(5, 5, 7, 0.2) 0%,
+      rgba(14, 12, 10, 0.2) 0%,
       transparent 35%,
-      rgba(5, 5, 7, 0.18) 100%
+      rgba(14, 12, 10, 0.18) 100%
     );
 }
 
@@ -239,7 +239,7 @@ body,
   max-width: 780px;
   margin: 0;
 
-  color: #ffffff;
+  color: #f6f1e8;
   font-size: clamp(3.2rem, 7vw, 7rem);
   font-weight: 600;
   line-height: 0.96;
@@ -249,9 +249,9 @@ body,
 .vw-hero-text .grad {
   background: linear-gradient(
     90deg,
-    #a8b7ff,
-    #ffffff 45%,
-    #b9a5ff
+    #f3e0c8,
+    #f6f1e8 45%,
+    #c4844a
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -262,7 +262,7 @@ body,
   max-width: 650px;
   margin: 28px 0 0;
 
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(246, 241, 232, 0.72);
   font-size: clamp(1rem, 1.4vw, 1.22rem);
   line-height: 1.7;
 }
@@ -356,7 +356,7 @@ body,
   justify-content: center;
   gap: 14px;
 
-  background: #050507;
+  background: #0e0c0a;
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.82rem;
   letter-spacing: 0.04em;
@@ -402,6 +402,36 @@ body,
   transition: width 150ms ease;
 }
 
+.vw-workspace {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 72px 0 96px;
+}
+
+.vw-workspace-copy {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 40px;
+}
+
+.vw-workspace-copy .lead {
+  margin: 18px auto 0;
+}
+
+.vw-workspace-frame {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--line-2);
+  background: var(--deep);
+  box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9);
+}
+
+.vw-workspace-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (max-width: 900px) {
   .vw-hero {
     height: 260vh;
@@ -426,9 +456,9 @@ body,
     background:
       linear-gradient(
         180deg,
-        rgba(5, 5, 7, 0.36) 0%,
-        rgba(5, 5, 7, 0.2) 38%,
-        rgba(5, 5, 7, 0.92) 100%
+        rgba(14, 12, 10, 0.36) 0%,
+        rgba(14, 12, 10, 0.2) 38%,
+        rgba(14, 12, 10, 0.92) 100%
       );
   }
 
@@ -481,4 +511,3 @@ body,
     transform: none !important;
   }
 }
-

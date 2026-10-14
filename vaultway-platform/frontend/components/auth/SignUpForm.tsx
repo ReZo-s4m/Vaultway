@@ -86,7 +86,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
           type="text"
           placeholder="Jane Doe"
           {...register("name")}
-          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm"
+          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm"
         />
         {errors.name && (
           <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
@@ -102,7 +102,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
           type="text"
           placeholder="janedoe"
           {...register("username")}
-          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm"
+          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm"
         />
         {errors.username && (
           <p className="text-red-400 text-xs mt-1">{errors.username.message}</p>
@@ -118,7 +118,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
           type="email"
           placeholder="jane@example.com"
           {...register("email")}
-          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm"
+          className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm"
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
@@ -135,7 +135,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             {...register("password")}
-            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm pr-11"
+            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm pr-11"
           />
           <button
             type="button"
@@ -160,7 +160,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
             type={showConfirmPassword ? "text" : "password"}
             placeholder="••••••••"
             {...register("confirmPassword")}
-            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all text-sm pr-11"
+            className="w-full bg-black/30 text-white placeholder-zinc-500 border border-white/10 rounded-xl py-2.5 px-4 focus:outline-none focus:border-[#c4844a]/70 focus:ring-1 focus:ring-[#c4844a]/35 transition-all text-sm pr-11"
           />
           <button
             type="button"
@@ -181,7 +181,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full relative flex items-center justify-center font-semibold text-black bg-white rounded-xl py-3 hover:bg-zinc-100 transition-all text-sm mt-5 group overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed"
+        className="w-full relative flex items-center justify-center font-semibold text-[#1c120c] bg-gradient-to-b from-[#efd3b4] to-[#c4844a] rounded-xl py-3 hover:brightness-110 transition-all text-sm mt-5 group overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <Loader2 className="animate-spin text-black" size={18} />

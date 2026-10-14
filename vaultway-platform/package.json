@@ -23,7 +23,9 @@
     "db:migrate": "npm run db:migrate --workspace backend",
     "db:seed": "npm run db:seed --workspace backend",
     "db:studio": "npm run db:studio --workspace backend",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck:api": "npm run typecheck --workspace backend",
+    "typecheck:web": "npm run typecheck --workspace frontend"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

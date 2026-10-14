@@ -1,11 +1,11 @@
 .page {
-  --media-bg: #050507;
-  --text: #f7f8fa;
-  --muted: #a3aab4;
-  --muted-2: #737b87;
-  --blue: #2f6df6;
-  --blue-bright: #6792ff;
-  --blue-soft: rgba(47, 109, 246, 0.15);
+  --media-bg: #0e0c0a;
+  --text: #f6f1e8;
+  --muted: #c4b5a4;
+  --muted-2: #8d7d6c;
+  --blue: #c4844a;
+  --blue-bright: #e4c09a;
+  --blue-soft: rgba(176, 109, 58, 0.15);
 
   min-height: 100vh;
   overflow: hidden;
@@ -117,13 +117,13 @@
 .primaryButton {
   color: #fff;
   background: var(--blue);
-  box-shadow: 0 16px 36px rgba(47, 109, 246, 0.2);
+  box-shadow: 0 16px 36px rgba(176, 109, 58, 0.2);
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
   background: #447bf7;
-  box-shadow: 0 20px 44px rgba(47, 109, 246, 0.28);
+  box-shadow: 0 20px 44px rgba(176, 109, 58, 0.28);
 }
 
 .secondaryButton {
@@ -201,7 +201,7 @@
   border-radius: 50%;
   color: #fff;
   background: var(--blue);
-  box-shadow: 0 7px 18px rgba(47, 109, 246, 0.26);
+  box-shadow: 0 7px 18px rgba(176, 109, 58, 0.26);
   font-size: clamp(0.68rem, 0.9vw, 0.9rem);
   font-weight: 850;
 }

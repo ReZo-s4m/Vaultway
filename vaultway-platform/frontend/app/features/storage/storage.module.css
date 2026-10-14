@@ -1,16 +1,16 @@
 .page {
-  --page: #171b20;
-  --page-deep: #14181d;
-  --surface: #1d2228;
-  --surface-2: #222830;
+  --page: #14110e;
+  --page-deep: #100e0c;
+  --surface: #1c1814;
+  --surface-2: #26201b;
   --line: rgba(255, 255, 255, 0.09);
   --line-strong: rgba(255, 255, 255, 0.15);
-  --text: #f6f7f9;
-  --muted: #a3aab4;
-  --muted-2: #737b87;
-  --blue: #2f6df6;
-  --blue-bright: #6491ff;
-  --blue-soft: rgba(47, 109, 246, 0.14);
+  --text: #f6f1e8;
+  --muted: #c4b5a4;
+  --muted-2: #8d7d6c;
+  --blue: #c4844a;
+  --blue-bright: #e4c09a;
+  --blue-soft: rgba(176, 109, 58, 0.14);
 
   min-height: 100vh;
   overflow: hidden;
@@ -38,7 +38,7 @@
 .hero {
   border-bottom: 1px solid var(--line);
   background:
-    radial-gradient(circle at 78% 35%, rgba(47, 109, 246, 0.14), transparent 28rem),
+    radial-gradient(circle at 78% 35%, rgba(176, 109, 58, 0.14), transparent 28rem),
     linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 38%),
     var(--page);
 }
@@ -120,13 +120,13 @@
 .primaryButton {
   color: #fff;
   background: var(--blue);
-  box-shadow: 0 16px 36px rgba(47, 109, 246, 0.21);
+  box-shadow: 0 16px 36px rgba(176, 109, 58, 0.21);
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
   background: #447bf7;
-  box-shadow: 0 20px 44px rgba(47, 109, 246, 0.3);
+  box-shadow: 0 20px 44px rgba(176, 109, 58, 0.3);
 }
 
 .textButton {
@@ -178,7 +178,7 @@
   border-radius: 50%;
   color: #fff;
   background: var(--blue);
-  box-shadow: 0 6px 16px rgba(47, 109, 246, 0.25);
+  box-shadow: 0 6px 16px rgba(176, 109, 58, 0.25);
   font-size: clamp(0.68rem, 1vw, 0.9rem);
   font-weight: 800;
 }
@@ -230,8 +230,8 @@
   overflow: hidden;
   border-radius: 26px;
   background:
-    radial-gradient(circle at 50% 42%, rgba(47, 109, 246, 0.1), transparent 34%),
-    linear-gradient(145deg, #222830, #1d2228);
+    radial-gradient(circle at 50% 42%, rgba(176, 109, 58, 0.1), transparent 34%),
+    linear-gradient(145deg, #26201b, #1c1814);
 }
 
 .featureImage {
@@ -347,7 +347,7 @@
 .planFeatured {
   border-color: rgba(100, 145, 255, 0.35);
   background:
-    linear-gradient(180deg, rgba(47, 109, 246, 0.085), transparent 40%),
+    linear-gradient(180deg, rgba(176, 109, 58, 0.085), transparent 40%),
     var(--surface);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
 }
@@ -468,7 +468,7 @@
   overflow: hidden;
   border-radius: 26px;
   background:
-    radial-gradient(circle at 50% 40%, rgba(47, 109, 246, 0.11), transparent 34%),
+    radial-gradient(circle at 50% 40%, rgba(176, 109, 58, 0.11), transparent 34%),
     var(--surface);
 }
 
@@ -596,7 +596,7 @@
   justify-content: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 45%, rgba(47, 109, 246, 0.2), transparent 34%),
+    radial-gradient(circle at 50% 45%, rgba(176, 109, 58, 0.2), transparent 34%),
     #e4e7ec;
 }
 
@@ -611,7 +611,7 @@
   border-radius: 34px;
   color: #fff;
   background: var(--blue);
-  box-shadow: 0 24px 50px rgba(47, 109, 246, 0.28);
+  box-shadow: 0 24px 50px rgba(176, 109, 58, 0.28);
   font-size: 2.6rem;
   font-weight: 850;
 }
@@ -818,14 +818,14 @@
    ========================================================= */
 
 .page {
-  --page: #171b20;
-  --page-deep: #171b20;
-  --surface: #171b20;
-  --surface-2: #171b20;
+  --page: #14110e;
+  --page-deep: #14110e;
+  --surface: #14110e;
+  --surface-2: #14110e;
   --line: transparent;
   --line-strong: transparent;
 
-  background: #171b20;
+  background: #14110e;
 }
 
 .hero,
@@ -836,7 +836,7 @@
 .faqSection,
 .ctaSection {
   border: 0;
-  background: #171b20;
+  background: #14110e;
 }
 
 /* Remove the hero/section divider visible across the page */
@@ -881,7 +881,7 @@
 .planCard,
 .planFeatured {
   border: 0;
-  background: #171b20;
+  background: #14110e;
   box-shadow: none;
 }
 
@@ -916,7 +916,7 @@
 .ctaCard,
 .ctaArt {
   color: var(--text);
-  background: #171b20;
+  background: #14110e;
 }
 
 .ctaCard {

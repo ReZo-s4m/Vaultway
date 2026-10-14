@@ -3,8 +3,7 @@ import { Space_Grotesk, Manrope, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import './landing.css';
 import { Providers } from './providers';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { SiteFrame } from '../components/SiteFrame';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -27,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Vaultway — Secure File Sharing',
   description:
-    'Encrypted file sharing platform. Files are encrypted before they leave your device.',
+    'Cloud-based secure file sharing. Upload, organise, and share files from a private dashboard designed around AES-256-GCM and Supabase Storage.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,13 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable} antialiased`} suppressHydrationWarning>
         <Providers>
-          <div className="landing-page">
-            <Header />
-            <main>
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <SiteFrame>{children}</SiteFrame>
         </Providers>
       </body>
     </html>

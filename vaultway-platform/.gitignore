@@ -13,17 +13,34 @@ next-env.d.ts
 
 # env & secrets
 .env
+.env.local
 .env.*
 !.env.example
 !*.env.example
+
+# Local SQLite / Prisma artifacts
+*.db
+*.db-journal
+*.sqlite
+backend/prisma/dev.db*
+
+# Uploaded files kept out of version control
+uploads/
 
 # logs
 *.log
 npm-debug.log*
 logs/
 
+# Playwright
+test-results/
+playwright-report/
+
 # misc / editor / os
 .DS_Store
 .turbo/
 coverage/
 .idea/
+.vscode/*
+!.vscode/extensions.json
+.vercel

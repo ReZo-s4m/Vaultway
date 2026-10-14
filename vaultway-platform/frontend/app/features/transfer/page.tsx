@@ -24,9 +24,9 @@ import {
 import styles from "./transfer.module.css";
 
 export const metadata: Metadata = {
-  title: "Quick File Transfer | Vaultway",
+  title: "Send a share link | Vaultway",
   description:
-    "Send large files quickly with secure download links, expiry controls, and simple delivery tracking.",
+    "Send a file with the Cloud Drive share dialog: optional password, expiry, view limit, and revoke.",
 };
 
 type Benefit = {
@@ -37,27 +37,27 @@ type Benefit = {
 
 const transferBenefits: Benefit[] = [
   {
-    title: "Send without creating a folder",
+    title: "Same share dialog as Cloud Drive",
     description:
-      "Choose files, create a transfer, and share one download link without changing your main Vaultway workspace.",
+      "Upload a file, open Share, copy the link. There is no second transfer product or dropzone on this page that actually sends files.",
     icon: Send,
   },
   {
-    title: "Handle larger files",
+    title: "Small files stay downloadable here",
     description:
-      "Move project archives, recordings, design files, and other large deliveries through one focused transfer flow.",
+      "Preview and download work for small files kept in the browser workspace. Large files store metadata only in this demo.",
     icon: HardDriveUpload,
   },
   {
-    title: "Keep delivery controlled",
+    title: "Keep the link controlled",
     description:
-      "Add expiry dates and passwords so a transfer does not remain available longer than intended.",
+      "Optional password, expiry, view limit, and revoke from Shared items.",
     icon: ShieldCheck,
   },
   {
-    title: "Know when it arrives",
+    title: "No delivery tracking",
     description:
-      "Track the transfer status and see when recipients open or download the delivery.",
+      "The dashboard lists the links you created. It does not notify you when someone opens or downloads them.",
     icon: MailCheck,
   },
 ];
@@ -65,21 +65,21 @@ const transferBenefits: Benefit[] = [
 const transferSteps = [
   {
     number: "01",
-    title: "Add your files",
+    title: "Upload in Cloud Drive",
     description:
-      "Drag files into the transfer panel or select them from your device.",
+      "Drop files into the dashboard. That is the real uploader — not the mock panel on the right.",
   },
   {
     number: "02",
-    title: "Choose protection",
+    title: "Open Share",
     description:
-      "Set an expiry time, add a password, and name the transfer.",
+      "Choose VIEW or DOWNLOAD, then optional password, expiry, and view limit.",
   },
   {
     number: "03",
-    title: "Share the link",
+    title: "Copy the link",
     description:
-      "Copy the generated link or send it directly to the recipient.",
+      "Find it again under Shared items. A public download page is not wired yet.",
   },
 ];
 
@@ -97,9 +97,9 @@ const controls = [
     icon: KeyRound,
   },
   {
-    title: "Download tracking",
+    title: "Shared items list",
     description:
-      "See whether a delivery is still waiting, opened, or downloaded.",
+      "See the links you created and revoke them. Opened/downloaded tracking is not built.",
     icon: Gauge,
   },
   {
@@ -112,14 +112,14 @@ const controls = [
 
 const faqs = [
   {
-    question: "What is the difference between Quick Transfer and Secure Sharing?",
+    question: "What is the difference between this page and Secure Sharing?",
     answer:
-      "Quick Transfer is designed for one-off delivery. Secure Sharing is better when a file or folder should remain available and manageable over time.",
+      "There is no difference in the product. Both pages describe the same Cloud Drive share dialog.",
   },
   {
     question: "Does the recipient need a Vaultway account?",
     answer:
-      "No. The recipient can open the transfer link and download the files without creating a Vaultway account.",
+      "The share dialog creates a public-style link. A dedicated public download page is not wired yet, so you manage the link from Shared items.",
   },
   {
     question: "Can I add an expiry date?",
@@ -145,13 +145,14 @@ export default function TransferPage() {
         <div className={styles.shell}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>Quick transfer</p>
+              <p className={styles.eyebrow}>Share link</p>
 
-              <h1>Send large files quickly and securely</h1>
+              <h1>Send a file with a share link</h1>
 
               <p className={styles.heroDescription}>
-                Create a focused delivery, protect it with simple controls, and
-                share one clean download link with anyone.
+                This page is an explanation of the Cloud Drive Share dialog —
+                not a second product. The video and the panel below are
+                illustrations.
               </p>
 
               <div className={styles.heroActions}>
@@ -161,7 +162,7 @@ export default function TransferPage() {
                 </Link>
 
                 <Link href="/features/sharing" className={styles.textLink}>
-                  Compare with Secure Sharing
+                  Same flow on Sharing
                   <ArrowRight size={17} />
                 </Link>
               </div>
@@ -169,7 +170,7 @@ export default function TransferPage() {
               <div className={styles.heroMeta}>
                 <span>
                   <Check size={15} />
-                  No recipient account required
+                  Same dialog as Cloud Drive
                 </span>
 
                 <span>
@@ -215,12 +216,12 @@ export default function TransferPage() {
         <div className={styles.shell}>
           <div className={styles.benefitsLayout}>
             <div className={styles.sectionHeading}>
-              <p className={styles.eyebrow}>Built for delivery</p>
-              <h2>One simple flow for sending files</h2>
+              <p className={styles.eyebrow}>What is actually built</p>
+              <h2>One share dialog for sending files</h2>
 
               <p>
-                Use Quick Transfer when the recipient only needs the files—not
-                access to your complete folder or workspace.
+                A link is for that file only. The rest of Cloud Drive stays in
+                your signed-in session.
               </p>
             </div>
 
@@ -249,11 +250,11 @@ export default function TransferPage() {
           <div className={styles.demoGrid}>
             <div className={styles.demoCopy}>
               <p className={styles.eyebrow}>Fast setup</p>
-              <h2>Prepare a transfer in a few steps</h2>
+              <h2>The real steps are in the dashboard</h2>
 
               <p>
-                Add your files, choose the access settings, and Vaultway creates
-                a delivery link that is ready to send.
+                The card on the right is a mock. Buttons on it do not upload or
+                create a link.
               </p>
 
               <div className={styles.stepList}>
@@ -289,34 +290,34 @@ export default function TransferPage() {
             </div>
 
             <div className={styles.performanceCopy}>
-              <p className={styles.eyebrow}>Built for speed</p>
-              <h2>Move big deliveries without a complicated workflow</h2>
+              <p className={styles.eyebrow}>Browser workspace</p>
+              <h2>No separate high-speed transfer lane</h2>
 
               <p>
-                Vaultway keeps transfer creation focused: select the files,
-                choose protection, and send the link. The recipient gets a clean
-                download experience without navigating your storage.
+                Files go through Cloud Drive. Small ones can be previewed and
+                downloaded here. A recipient download page and live upload
+                progress to Supabase are not built yet.
               </p>
 
               <div className={styles.performancePoints}>
                 <span>
                   <Zap size={18} />
-                  Clear upload progress
+                  Upload in Cloud Drive
                 </span>
 
                 <span>
                   <Download size={18} />
-                  Simple recipient downloads
+                  Download if the file was kept locally
                 </span>
 
                 <span>
                   <Sparkles size={18} />
-                  Designed for one-off deliveries
+                  Same share dialog
                 </span>
               </div>
 
-              <Link href="/sign-up" className={styles.primaryButton}>
-                Create a transfer
+              <Link href="/sign-in" className={styles.primaryButton}>
+                Open Cloud Drive
                 <ArrowRight size={18} />
               </Link>
             </div>
@@ -360,8 +361,8 @@ export default function TransferPage() {
       <section className={styles.comparisonSection}>
         <div className={styles.shell}>
           <div className={styles.comparisonHeading}>
-            <p className={styles.eyebrow}>Choose the right tool</p>
-            <h2>Quick Transfer or Secure Sharing?</h2>
+            <p className={styles.eyebrow}>One tool</p>
+            <h2>This is the same share flow</h2>
           </div>
 
           <div className={styles.comparisonGrid}>
@@ -370,25 +371,25 @@ export default function TransferPage() {
                 <Send size={28} />
               </span>
 
-              <h3>Use Quick Transfer when</h3>
+              <h3>Use a share link when</h3>
 
               <ul>
                 <li>
                   <Check size={16} />
-                  Files are being delivered once
+                  You already uploaded the file to Cloud Drive
                 </li>
                 <li>
                   <Check size={16} />
-                  The recipient only needs to download
+                  You want view or download on that file only
                 </li>
                 <li>
                   <Check size={16} />
-                  Access should expire automatically
+                  You want password, expiry, or revoke
                 </li>
               </ul>
 
-              <Link href="/sign-up" className={styles.textLink}>
-                Start a transfer
+              <Link href="/sign-in" className={styles.textLink}>
+                Open Shared items
                 <ArrowRight size={17} />
               </Link>
             </article>
@@ -398,20 +399,20 @@ export default function TransferPage() {
                 <Users size={28} />
               </span>
 
-              <h3>Use Secure Sharing when</h3>
+              <h3>What this project does not have</h3>
 
               <ul>
                 <li>
                   <Check size={16} />
-                  Access should remain available
+                  A second transfer uploader
                 </li>
                 <li>
                   <Check size={16} />
-                  People need folder permissions
+                  Folder collaborator permissions
                 </li>
                 <li>
                   <Check size={16} />
-                  The content will be updated over time
+                  Recipient open/download tracking
                 </li>
               </ul>
 
@@ -456,10 +457,10 @@ export default function TransferPage() {
             </span>
 
             <div className={styles.ctaCopy}>
-              <h2>Send your next delivery with Vaultway</h2>
+              <h2>Send a file from Cloud Drive</h2>
               <p>
-                Create a secure transfer link and keep control after it has been
-                sent.
+                Create the link in the dashboard Share dialog and revoke it from
+                Shared items.
               </p>
             </div>
 
@@ -484,11 +485,11 @@ function TransferPanel() {
     <div className={styles.transferPanel}>
       <div className={styles.panelTop}>
         <div>
-          <p>New transfer</p>
-          <span>3 files · 284 MB</span>
+          <p>Illustration only</p>
+          <span>Not a live uploader</span>
         </div>
 
-        <span className={styles.panelStatus}>Ready</span>
+        <span className={styles.panelStatus}>Mock</span>
       </div>
 
       <div className={styles.dropzone}>
@@ -499,7 +500,9 @@ function TransferPanel() {
         <strong>Drop files here</strong>
         <span>or choose files from your device</span>
 
-        <button type="button">Choose files</button>
+        <button type="button" disabled>
+          Illustration
+        </button>
       </div>
 
       <div className={styles.fileList}>
@@ -535,8 +538,8 @@ function TransferPanel() {
         </div>
       </div>
 
-      <button type="button" className={styles.createTransferButton}>
-        Create transfer link
+      <button type="button" className={styles.createTransferButton} disabled>
+        Use Share in Cloud Drive
       </button>
     </div>
   );

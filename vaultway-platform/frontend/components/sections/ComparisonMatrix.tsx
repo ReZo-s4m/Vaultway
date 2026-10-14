@@ -8,14 +8,14 @@ const COMPETITORS = [
     highlight: true,
     badge: 'Our Choice',
     features: [
-      { text: '5 GB Free Encrypted Storage', yes: true },
-      { text: 'Zero-Knowledge Crypto Architecture', yes: true },
-      { text: 'End-to-End client encryption', yes: true },
-      { text: 'Browser Decryption Sandbox', yes: true },
-      { text: 'Password-Protected Link Shares', yes: true },
-      { text: 'Immutable Cryptographic Audit Trail', yes: true },
+      { text: '5 GB Cloud Drive quota', yes: true },
+      { text: 'AES-256-GCM storage design', yes: true },
+      { text: 'Private Supabase bucket', yes: true },
+      { text: 'Web dashboard workspace', yes: true },
+      { text: 'Password-protected share links', yes: true },
+      { text: 'Activity list in Recents', yes: true },
     ],
-    disclaimer: '*Zero-knowledge active defense',
+    disclaimer: '*College project workspace — not a commercial cloud',
   },
   {
     name: 'Dropbox',
@@ -57,7 +57,7 @@ export default function ComparisonMatrix() {
           <span className="eyebrow">Comparison Matrix</span>
           <h2 className="h-sec">How does Vaultway compare?</h2>
           <p className="lead" style={{ maxWidth: '640px', margin: '18px auto 0' }}>
-            Traditional clouds encrypt at rest, but keep the keys. Vaultway gives you true mathematical zero-trust privacy.
+            Vaultway is this project&apos;s file workspace: a 5 GB drive, share-link controls, and AES-256-GCM designed for a private Supabase bucket.
           </p>
         </div>
 

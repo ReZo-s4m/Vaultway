@@ -13,7 +13,7 @@ export default function SolutionsPage() {
       <section className="section" id="how">
         <div className="dash-head center" data-reveal>
           <span className="eyebrow">How it works</span>
-          <h2 className="h-sec">Four steps to absolute privacy</h2>
+          <h2 className="h-sec">Four steps to share a file</h2>
         </div>
         <div className="wrap">
           <div className="steps">
@@ -26,8 +26,8 @@ export default function SolutionsPage() {
                 </svg>
               </div>
               <div className="snum">Step 1</div>
-              <h4>Select Files</h4>
-              <p>Drop or select files in your dashboard to queue them for client-side packaging.</p>
+              <h4>Select files</h4>
+              <p>Drop or choose files in Cloud Drive. They sit in your folder tree with the rest of the workspace.</p>
             </div>
             <div className="step" data-reveal data-d="1">
               <div className="sgate">
@@ -38,8 +38,8 @@ export default function SolutionsPage() {
                 </svg>
               </div>
               <div className="snum">Step 2</div>
-              <h4>Encrypt Locally</h4>
-              <p>Vaultway generates an AES-256 key and encrypts files before they leave your device.</p>
+              <h4>Encrypt for storage</h4>
+              <p>Each version is designed to be sealed with AES-256-GCM. The IV and auth tag are stored with that version in PostgreSQL.</p>
             </div>
             <div className="step" data-reveal data-d="2">
               <div className="sgate">
@@ -49,8 +49,8 @@ export default function SolutionsPage() {
                 </svg>
               </div>
               <div className="snum">Step 3</div>
-              <h4>Upload Ciphertext</h4>
-              <p>The encrypted data is stored in S3, while the decryption keys remain on your device.</p>
+              <h4>Store in Supabase</h4>
+              <p>Ciphertext is planned for a private Supabase Storage bucket (`vault-files`), not AWS S3 or Cloudinary.</p>
             </div>
             <div className="step" data-reveal data-d="3">
               <div className="sgate">
@@ -61,8 +61,8 @@ export default function SolutionsPage() {
                 </svg>
               </div>
               <div className="snum">Step 4</div>
-              <h4>Share the Link</h4>
-              <p>Send links safely via standard channels. The key is in the URL hash, kept client-side.</p>
+              <h4>Share the link</h4>
+              <p>Create a dashboard link with view or download access. Add a password, expiry, or view limit, then revoke it when you are done.</p>
             </div>
           </div>
 
@@ -76,7 +76,7 @@ export default function SolutionsPage() {
                     <path d="M12 16v-4M12 8h.01" />
                   </svg>
                 </span>
-                <span className="an-lab">Your device (Plaintext)</span>
+                <span className="an-lab">Dashboard (file)</span>
               </div>
               <span className="arch-sep">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -91,7 +91,7 @@ export default function SolutionsPage() {
                     <path d="M7 11V7a5 5 0 0110 0v4" />
                   </svg>
                 </span>
-                <span className="an-lab">Local Enc (AES-256)</span>
+                <span className="an-lab">AES-256-GCM</span>
               </div>
               <span className="arch-sep">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -105,7 +105,7 @@ export default function SolutionsPage() {
                     <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" />
                   </svg>
                 </span>
-                <span className="an-lab">Vaultway Storage (Ciphertext)</span>
+                <span className="an-lab">Supabase Storage</span>
               </div>
               <span className="arch-sep">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -122,7 +122,7 @@ export default function SolutionsPage() {
                     <path d="M16 3.13a4 4 0 010 7.75" />
                   </svg>
                 </span>
-                <span className="an-lab">Recipient (Decryption)</span>
+                <span className="an-lab">Share link</span>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@ export default function SolutionsPage() {
         <div className="dash-head center" data-reveal>
           <span className="eyebrow">Specifications</span>
           <h2 className="h-sec">Tech Stack & Architecture</h2>
-          <p className="lead">Built on modern, zero-trust primitives. Fully inspectable libraries and standard open protocols for storage and verification.</p>
+          <p className="lead">The stack this project actually uses: Next.js for the workspace, Express and Prisma for the API scaffold, and Supabase for PostgreSQL plus private file storage.</p>
         </div>
         <div className="wrap">
           <div className="tech-tabs" role="tablist" data-reveal data-d="1">
@@ -166,17 +166,17 @@ export default function SolutionsPage() {
               <div className="tech-item"><span className="td"></span>Prisma</div>
             </div>
             <div className={`tech-panel ${activeTechTab === 'storage' ? 'active' : ''}`} id="t-storage">
-              <div className="tech-item"><span className="td"></span>AWS S3</div>
-              <div className="tech-item"><span className="td"></span>Cloudinary</div>
+              <div className="tech-item"><span className="td"></span>Supabase Storage</div>
+              <div className="tech-item"><span className="td"></span>Private vault-files bucket</div>
             </div>
             <div className={`tech-panel ${activeTechTab === 'auth' ? 'active' : ''}`} id="t-auth">
-              <div className="tech-item"><span className="td"></span>JWT</div>
-              <div className="tech-item"><span className="td"></span>Clerk</div>
+              <div className="tech-item"><span className="td"></span>JWT (API plan)</div>
+              <div className="tech-item"><span className="td"></span>Web session in the app</div>
             </div>
             <div className={`tech-panel ${activeTechTab === 'sec' ? 'active' : ''}`} id="t-sec">
-              <div className="tech-item"><span className="td"></span>AES-256</div>
+              <div className="tech-item"><span className="td"></span>AES-256-GCM</div>
               <div className="tech-item"><span className="td"></span>HTTPS / TLS</div>
-              <div className="tech-item"><span className="td"></span>Docker</div>
+              <div className="tech-item"><span className="td"></span>Helmet + rate limits</div>
             </div>
           </div>
         </div>
